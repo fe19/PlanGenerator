@@ -9,14 +9,12 @@ import java.util.Scanner;
 
 public class PlanGenerator {
 
-    int IMAGE_HEIGHT = 2480; // A4 height
-    int IMAGE_WIDTH = 3508; // A4 width
     String IMAGE_NAME = "Grundriss";
     String FILE_EXTENSION = "jpg"; // jpg has 72ppi = 2835 pixel per m
     String VISA = "fe";
     String PATH = ".";
-    int FACTOR_M_IN_PIXEL = 50;
-    int MARGIN_IN_PIXEL = 75;
+    int FACTOR_M_IN_PIXEL = 100;
+    int MARGIN_IN_PIXEL = 100;
 
     public void generateImage() {
 
@@ -33,27 +31,30 @@ public class PlanGenerator {
         System.out.println("Rooms:");
         //int nbrRooms = scanner.nextInt();
         int nbrRooms = 3;
+        
+        int imageWidthInPixel = widthInM * FACTOR_M_IN_PIXEL + MARGIN_IN_PIXEL;
+        int imageHeightInPixel = heightInM * FACTOR_M_IN_PIXEL + MARGIN_IN_PIXEL;
 
-        BufferedImage bufferedImage = new BufferedImage(IMAGE_WIDTH, IMAGE_HEIGHT, BufferedImage.TYPE_INT_RGB);
+        BufferedImage bufferedImage = new BufferedImage(imageWidthInPixel, imageHeightInPixel, BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics2D = bufferedImage.createGraphics();
         graphics2D.setColor(Color.white);
 
         // Header
         graphics2D.drawString("Grundriss für " + nbrRooms + " Zimmer mit " + widthInM * heightInM + "m^2", 20, 20);
-        graphics2D.drawLine(0, MARGIN_IN_PIXEL / 2 + 10, IMAGE_WIDTH, MARGIN_IN_PIXEL / 2 + 10);
+        graphics2D.drawLine(0, MARGIN_IN_PIXEL / 2 + 10, imageWidthInPixel, MARGIN_IN_PIXEL / 2 + 10);
         //g2d.fillOval(0, 0, 5, 5);
 
         // Ground plan
         graphics2D.drawRect(MARGIN_IN_PIXEL + 20, MARGIN_IN_PIXEL, MARGIN_IN_PIXEL + widthInM * FACTOR_M_IN_PIXEL, MARGIN_IN_PIXEL + heightInM * FACTOR_M_IN_PIXEL);
 
         // Footer
-        graphics2D.drawLine(0, IMAGE_HEIGHT - MARGIN_IN_PIXEL / 2 - 10, IMAGE_WIDTH, IMAGE_HEIGHT - MARGIN_IN_PIXEL / 2 - 10);
-        graphics2D.drawString("Gezeichnet: " + getCurrentTime(), 20, IMAGE_HEIGHT - 15);
-        graphics2D.drawLine(300, IMAGE_HEIGHT - MARGIN_IN_PIXEL / 2 - 10, 300, IMAGE_HEIGHT);
-        graphics2D.drawString("Author: " + VISA, 310, IMAGE_HEIGHT - 15);
-        graphics2D.drawLine(500, IMAGE_HEIGHT - MARGIN_IN_PIXEL / 2 - 10, 500, IMAGE_HEIGHT);
-        graphics2D.drawString("Massstab: 1:" + 100, 510, IMAGE_HEIGHT - 15);
-        graphics2D.drawLine(700, IMAGE_HEIGHT - MARGIN_IN_PIXEL / 2 - 10, 700, IMAGE_HEIGHT);
+        graphics2D.drawLine(0, imageHeightInPixel - MARGIN_IN_PIXEL / 2 - 10, imageWidthInPixel, imageHeightInPixel - MARGIN_IN_PIXEL / 2 - 10);
+        graphics2D.drawString("Gezeichnet: " + getCurrentTime(), 20, imageHeightInPixel - 15);
+        graphics2D.drawLine(300, imageHeightInPixel - MARGIN_IN_PIXEL / 2 - 10, 300, imageHeightInPixel);
+        graphics2D.drawString("Author: " + VISA, 310, imageHeightInPixel - 15);
+        graphics2D.drawLine(500, imageHeightInPixel - MARGIN_IN_PIXEL / 2 - 10, 500, imageHeightInPixel);
+        graphics2D.drawString("Massstab: 1:" + 100, 510, imageHeightInPixel - 15);
+        graphics2D.drawLine(700, imageHeightInPixel - MARGIN_IN_PIXEL / 2 - 10, 700, imageHeightInPixel);
 
         graphics2D.dispose();
 
@@ -61,10 +62,10 @@ public class PlanGenerator {
 
         try {
             ImageIO.write(bufferedImage, "jpg", file);
-            System.out.println("Write image to " + file.getAbsolutePath());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
     }
 
     private String getCurrentTime() {
