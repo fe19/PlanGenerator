@@ -17,6 +17,7 @@ public class PlanGenerator {
     int MARGIN_IN_PIXEL = 100;
 
     public void generateImage() {
+        long start = System.currentTimeMillis();
 
         Scanner scanner = new Scanner(System.in);
 
@@ -65,6 +66,9 @@ public class PlanGenerator {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        long timeElapsed = System.currentTimeMillis() - start;
+        System.out.println("Generated image in \u001B[34m" + timeElapsed / 1000.0 + "s\u001B[0m at path " + file.getAbsolutePath());
 
     }
 
