@@ -15,6 +15,7 @@ public class PlanGenerator {
     String PATH = ".";
     int FACTOR_M_IN_PIXEL = 100;
     int MARGIN_IN_PIXEL = 100;
+    boolean IS_DARK_MODE = true;
 
     public void generateImage() {
         long start = System.currentTimeMillis();
@@ -38,7 +39,17 @@ public class PlanGenerator {
 
         BufferedImage bufferedImage = new BufferedImage(imageWidthInPixel, imageHeightInPixel, BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics2D = bufferedImage.createGraphics();
-        graphics2D.setColor(Color.white);
+
+        if (IS_DARK_MODE) {
+            graphics2D.setBackground(Color.black);
+            graphics2D.setColor(Color.white);
+        } else {
+            // we need to draw a filled rect with white since setBackground(Color.white) does not work
+            graphics2D.setColor(Color.white);
+            graphics2D.fillRect(0,0,imageWidthInPixel, imageHeightInPixel);
+            graphics2D.setColor(Color.black);
+            graphics2D.drawRect(0,0,imageWidthInPixel - 1, imageWidthInPixel - 1);
+        }
 
         // Header
         graphics2D.drawString("Grundrissplan für " + nbrRooms + " Zimmer mit " + widthInM * heightInM + "m^2", 20, 35);
