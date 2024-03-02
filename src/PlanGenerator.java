@@ -13,7 +13,12 @@ public class PlanGenerator {
     String FILE_EXTENSION = "jpg"; // jpg has 72ppi = 2835 pixel per m
     String VISA = "fe";
     String PATH = ".";
+    int NBR_ROOMS = 3;
+    int APARTMENT_WITH_IN_M = 10;
+    int APARTMENT_HEIGHT_IN_M = 5;
     int FACTOR_M_IN_PIXEL = 100;
+    int APARTMENT_WIDTH_IN_PIXEL;
+    int APARTMENT_HEIGHT_IN_PIXEL;
     int MARGIN_IN_PIXEL = 100;
     boolean IS_DARK_MODE = true;
     double FACTOR_LIVING_ROOM_BATHROOM = 0.7;
@@ -23,24 +28,18 @@ public class PlanGenerator {
         long start = System.currentTimeMillis();
 
         Scanner scanner = new Scanner(System.in);
-
         System.out.println("Breite:");
-        //int apartmentWidthInM = scanner.nextInt();
-        int apartmentWidthInM = 20;
-
+        //APARTMENT_WITH_IN_M = scanner.nextInt();
         System.out.println("Höhe:");
-        //int apartmentHeightInM = scanner.nextInt();
-        int apartmentHeightInM = 5;
-
+        //APARTMENT_HEIGHT_IN_M = scanner.nextInt();
         System.out.println("Räume:");
-        //int nbrRooms = scanner.nextInt();
-        int nbrRooms = 3;
+        //NBR_ROOMS = scanner.nextInt();
         
-        int apartmentWidthInPixel = apartmentWidthInM * FACTOR_M_IN_PIXEL;
-        int apartmentHeightInPixel = apartmentHeightInM * FACTOR_M_IN_PIXEL;
+        APARTMENT_WIDTH_IN_PIXEL = APARTMENT_WITH_IN_M * FACTOR_M_IN_PIXEL;
+        APARTMENT_HEIGHT_IN_PIXEL = APARTMENT_HEIGHT_IN_M * FACTOR_M_IN_PIXEL;
         
-        int imageWidthInPixel = apartmentWidthInPixel + 2 * MARGIN_IN_PIXEL;
-        int imageHeightInPixel = apartmentHeightInPixel + 2 * MARGIN_IN_PIXEL;
+        int imageWidthInPixel = APARTMENT_WIDTH_IN_PIXEL + 2 * MARGIN_IN_PIXEL;
+        int imageHeightInPixel = APARTMENT_HEIGHT_IN_PIXEL + 2 * MARGIN_IN_PIXEL;
 
         BufferedImage bufferedImage = new BufferedImage(imageWidthInPixel, imageHeightInPixel, BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics2D = bufferedImage.createGraphics();
@@ -57,21 +56,21 @@ public class PlanGenerator {
         }
 
         // Header
-        graphics2D.drawString("Grundrissplan für " + nbrRooms + " Zimmer mit " + apartmentWidthInM * apartmentHeightInM + "m^2", 20, 35);
+        graphics2D.drawString("Grundrissplan für " + NBR_ROOMS + " Zimmer mit " + APARTMENT_WITH_IN_M * APARTMENT_HEIGHT_IN_M + "m^2", 20, 35);
         graphics2D.drawLine(0, MARGIN_IN_PIXEL / 2 + 10, imageWidthInPixel, MARGIN_IN_PIXEL / 2 + 10);
         //g2d.fillOval(0, 0, 5, 5);
 
         // Ground plan
-        graphics2D.drawRect(MARGIN_IN_PIXEL, MARGIN_IN_PIXEL, apartmentWidthInPixel, apartmentHeightInPixel);
-        graphics2D.drawString(String.valueOf(apartmentWidthInPixel), MARGIN_IN_PIXEL - 5 + apartmentWidthInPixel / 2, MARGIN_IN_PIXEL - 10);
-        graphics2D.drawString(String.valueOf(apartmentHeightInPixel), MARGIN_IN_PIXEL - 30, MARGIN_IN_PIXEL + 5 + apartmentHeightInPixel / 2);
+        graphics2D.drawRect(MARGIN_IN_PIXEL, MARGIN_IN_PIXEL, APARTMENT_WIDTH_IN_PIXEL, APARTMENT_HEIGHT_IN_PIXEL);
+        graphics2D.drawString(String.valueOf(APARTMENT_WIDTH_IN_PIXEL), MARGIN_IN_PIXEL - 5 + APARTMENT_WIDTH_IN_PIXEL / 2, MARGIN_IN_PIXEL - 10);
+        graphics2D.drawString(String.valueOf(APARTMENT_HEIGHT_IN_PIXEL), MARGIN_IN_PIXEL - 30, MARGIN_IN_PIXEL + 5 + APARTMENT_HEIGHT_IN_PIXEL / 2);
 
         // Rooms
         // living room
         int livingRoomX = MARGIN_IN_PIXEL;
-        int livingRoomY = MARGIN_IN_PIXEL + apartmentHeightInPixel / 2;
-        int livingRoomWidth = (int) (FACTOR_LIVING_ROOM_BATHROOM * apartmentWidthInPixel);
-        int livingRoomHeight = apartmentHeightInPixel / 2;
+        int livingRoomY = MARGIN_IN_PIXEL + APARTMENT_HEIGHT_IN_PIXEL / 2;
+        int livingRoomWidth = (int) (FACTOR_LIVING_ROOM_BATHROOM * APARTMENT_WIDTH_IN_PIXEL);
+        int livingRoomHeight = APARTMENT_HEIGHT_IN_PIXEL / 2;
         int livingRoomArea = livingRoomWidth * livingRoomHeight / (FACTOR_M_IN_PIXEL * FACTOR_M_IN_PIXEL);
         String livingRoomText = "Wohnzimmer " + livingRoomArea + "m^2";
         graphics2D.drawRect(livingRoomX, livingRoomY, livingRoomWidth, livingRoomHeight);
@@ -80,7 +79,7 @@ public class PlanGenerator {
         // bathroom
         int bathroomX = livingRoomX + livingRoomWidth;
         int bathroomY = livingRoomY;
-        int bathroomWith = apartmentWidthInPixel - livingRoomWidth;
+        int bathroomWith = APARTMENT_WIDTH_IN_PIXEL - livingRoomWidth;
         int bathroomHeight = livingRoomHeight;
         int bathroomArea = bathroomWith * bathroomHeight / (FACTOR_M_IN_PIXEL * FACTOR_M_IN_PIXEL);
         String bathroomText = "Badezimmer " + bathroomArea + "m^2";
