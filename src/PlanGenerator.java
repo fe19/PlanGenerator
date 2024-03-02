@@ -5,11 +5,11 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-//import java.util.Scanner;
+import java.util.Scanner;
 
 public class PlanGenerator {
 
-    String IMAGE_NAME = "Grundriss";
+    String IMAGE_NAME = "Grundrissplan";
     String FILE_EXTENSION = "jpg"; // jpg has 72ppi = 2835 pixel per m
     String VISA = "fe";
     String PATH = ".";
@@ -20,19 +20,19 @@ public class PlanGenerator {
     public void generateImage() {
         long start = System.currentTimeMillis();
 
-        // Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Length:");
-        //int length = scanner.nextInt();
-        int widthInM = 10;
+        System.out.println("Breite:");
+        int widthInM = scanner.nextInt();
+        //int widthInM = 10;
 
-        System.out.println("Width:");
-        //int width = scanner.nextInt();
-        int heightInM = 5;
+        System.out.println("Höhe:");
+        int heightInM = scanner.nextInt();
+        //int heightInM = 5;
 
-        System.out.println("Rooms:");
-        //int nbrRooms = scanner.nextInt();
-        int nbrRooms = 3;
+        System.out.println("Räume:");
+        int nbrRooms = scanner.nextInt();
+        //int nbrRooms = 3;
         
         int imageWidthInPixel = widthInM * FACTOR_M_IN_PIXEL + 2 * MARGIN_IN_PIXEL;
         int imageHeightInPixel = heightInM * FACTOR_M_IN_PIXEL + 2 * MARGIN_IN_PIXEL;
