@@ -71,6 +71,10 @@ public class PlanGenerator {
 
         drawRoom("Badezimmer", MARGIN_IN_PIXEL + (int) (FACTOR_LIVING_ROOM_BATHROOM * APARTMENT_WIDTH_IN_PIXEL), MARGIN_IN_PIXEL + APARTMENT_HEIGHT_IN_PIXEL / 2, APARTMENT_WIDTH_IN_PIXEL - (int) (FACTOR_LIVING_ROOM_BATHROOM * APARTMENT_WIDTH_IN_PIXEL), APARTMENT_HEIGHT_IN_PIXEL / 2, graphics2D);
 
+        drawRoom("Schlafzimmer", MARGIN_IN_PIXEL, MARGIN_IN_PIXEL, (int) (APARTMENT_WIDTH_IN_PIXEL * FACTOR_BEDROOM_KITCHEN), APARTMENT_HEIGHT_IN_PIXEL / 2, graphics2D);
+
+        drawRoom("Küche", MARGIN_IN_PIXEL + (int) (APARTMENT_WIDTH_IN_PIXEL * FACTOR_BEDROOM_KITCHEN), MARGIN_IN_PIXEL, (int) (APARTMENT_WIDTH_IN_PIXEL * (1 - FACTOR_BEDROOM_KITCHEN)), APARTMENT_HEIGHT_IN_PIXEL / 2, graphics2D);
+
         // Footer
         graphics2D.drawLine(0, imageHeightInPixel - MARGIN_IN_PIXEL / 2 - 10, imageWidthInPixel, imageHeightInPixel - MARGIN_IN_PIXEL / 2 - 10);
         graphics2D.drawString("Gezeichnet: " + getCurrentTime(), 20, imageHeightInPixel - 25);
