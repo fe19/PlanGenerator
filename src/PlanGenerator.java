@@ -47,6 +47,8 @@ public class PlanGenerator {
 
         // Ground plan
         graphics2D.drawRect(MARGIN_IN_PIXEL, MARGIN_IN_PIXEL, widthInM * FACTOR_M_IN_PIXEL, heightInM * FACTOR_M_IN_PIXEL);
+        graphics2D.drawString(String.valueOf(widthInM * FACTOR_M_IN_PIXEL), MARGIN_IN_PIXEL - 5 + widthInM * FACTOR_M_IN_PIXEL / 2, MARGIN_IN_PIXEL - 10);
+        graphics2D.drawString(String.valueOf(heightInM * FACTOR_M_IN_PIXEL), MARGIN_IN_PIXEL - 30, MARGIN_IN_PIXEL - 5 + heightInM * FACTOR_M_IN_PIXEL / 2);
 
         // Footer
         graphics2D.drawLine(0, imageHeightInPixel - MARGIN_IN_PIXEL / 2 - 10, imageWidthInPixel, imageHeightInPixel - MARGIN_IN_PIXEL / 2 - 10);
