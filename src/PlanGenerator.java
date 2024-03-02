@@ -33,28 +33,28 @@ public class PlanGenerator {
         //int nbrRooms = scanner.nextInt();
         int nbrRooms = 3;
         
-        int imageWidthInPixel = widthInM * FACTOR_M_IN_PIXEL + MARGIN_IN_PIXEL;
-        int imageHeightInPixel = heightInM * FACTOR_M_IN_PIXEL + MARGIN_IN_PIXEL;
+        int imageWidthInPixel = widthInM * FACTOR_M_IN_PIXEL + 2 * MARGIN_IN_PIXEL;
+        int imageHeightInPixel = heightInM * FACTOR_M_IN_PIXEL + 2 * MARGIN_IN_PIXEL;
 
         BufferedImage bufferedImage = new BufferedImage(imageWidthInPixel, imageHeightInPixel, BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics2D = bufferedImage.createGraphics();
         graphics2D.setColor(Color.white);
 
         // Header
-        graphics2D.drawString("Grundriss für " + nbrRooms + " Zimmer mit " + widthInM * heightInM + "m^2", 20, 20);
+        graphics2D.drawString("Grundrissplan für " + nbrRooms + " Zimmer mit " + widthInM * heightInM + "m^2", 20, 35);
         graphics2D.drawLine(0, MARGIN_IN_PIXEL / 2 + 10, imageWidthInPixel, MARGIN_IN_PIXEL / 2 + 10);
         //g2d.fillOval(0, 0, 5, 5);
 
         // Ground plan
-        graphics2D.drawRect(MARGIN_IN_PIXEL + 20, MARGIN_IN_PIXEL, MARGIN_IN_PIXEL + widthInM * FACTOR_M_IN_PIXEL, MARGIN_IN_PIXEL + heightInM * FACTOR_M_IN_PIXEL);
+        graphics2D.drawRect(MARGIN_IN_PIXEL, MARGIN_IN_PIXEL, widthInM * FACTOR_M_IN_PIXEL, heightInM * FACTOR_M_IN_PIXEL);
 
         // Footer
         graphics2D.drawLine(0, imageHeightInPixel - MARGIN_IN_PIXEL / 2 - 10, imageWidthInPixel, imageHeightInPixel - MARGIN_IN_PIXEL / 2 - 10);
-        graphics2D.drawString("Gezeichnet: " + getCurrentTime(), 20, imageHeightInPixel - 15);
+        graphics2D.drawString("Gezeichnet: " + getCurrentTime(), 20, imageHeightInPixel - 25);
         graphics2D.drawLine(300, imageHeightInPixel - MARGIN_IN_PIXEL / 2 - 10, 300, imageHeightInPixel);
-        graphics2D.drawString("Author: " + VISA, 310, imageHeightInPixel - 15);
+        graphics2D.drawString("Author: " + VISA, 310, imageHeightInPixel - 25);
         graphics2D.drawLine(500, imageHeightInPixel - MARGIN_IN_PIXEL / 2 - 10, 500, imageHeightInPixel);
-        graphics2D.drawString("Massstab: 1:" + 100, 510, imageHeightInPixel - 15);
+        graphics2D.drawString("M: 1:" + 100, 510, imageHeightInPixel - 25);
         graphics2D.drawLine(700, imageHeightInPixel - MARGIN_IN_PIXEL / 2 - 10, 700, imageHeightInPixel);
 
         graphics2D.dispose();
