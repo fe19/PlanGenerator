@@ -34,6 +34,7 @@ public class PlanGenerator {
         //APARTMENT_HEIGHT_IN_M = scanner.nextInt();
         System.out.println("Räume:");
         //NBR_ROOMS = scanner.nextInt();
+        scanner.close();
         
         APARTMENT_WIDTH_IN_PIXEL = APARTMENT_WITH_IN_M * FACTOR_M_IN_PIXEL;
         APARTMENT_HEIGHT_IN_PIXEL = APARTMENT_HEIGHT_IN_M * FACTOR_M_IN_PIXEL;
@@ -66,25 +67,9 @@ public class PlanGenerator {
         graphics2D.drawString(String.valueOf(APARTMENT_HEIGHT_IN_PIXEL), MARGIN_IN_PIXEL - 30, MARGIN_IN_PIXEL + 5 + APARTMENT_HEIGHT_IN_PIXEL / 2);
 
         // Rooms
-        // living room
-        int livingRoomX = MARGIN_IN_PIXEL;
-        int livingRoomY = MARGIN_IN_PIXEL + APARTMENT_HEIGHT_IN_PIXEL / 2;
-        int livingRoomWidth = (int) (FACTOR_LIVING_ROOM_BATHROOM * APARTMENT_WIDTH_IN_PIXEL);
-        int livingRoomHeight = APARTMENT_HEIGHT_IN_PIXEL / 2;
-        int livingRoomArea = livingRoomWidth * livingRoomHeight / (FACTOR_M_IN_PIXEL * FACTOR_M_IN_PIXEL);
-        String livingRoomText = "Wohnzimmer " + livingRoomArea + "m^2";
-        graphics2D.drawRect(livingRoomX, livingRoomY, livingRoomWidth, livingRoomHeight);
-        graphics2D.drawString(livingRoomText, livingRoomX + livingRoomWidth / 2 - graphics2D.getFontMetrics().stringWidth(livingRoomText) / 2, livingRoomY + livingRoomHeight / 2 - 5);
+        drawRoom("Wohnzimmer", MARGIN_IN_PIXEL, MARGIN_IN_PIXEL + APARTMENT_HEIGHT_IN_PIXEL / 2, (int) (FACTOR_LIVING_ROOM_BATHROOM * APARTMENT_WIDTH_IN_PIXEL), APARTMENT_HEIGHT_IN_PIXEL / 2, graphics2D);
 
-        // bathroom
-        int bathroomX = livingRoomX + livingRoomWidth;
-        int bathroomY = livingRoomY;
-        int bathroomWith = APARTMENT_WIDTH_IN_PIXEL - livingRoomWidth;
-        int bathroomHeight = livingRoomHeight;
-        int bathroomArea = bathroomWith * bathroomHeight / (FACTOR_M_IN_PIXEL * FACTOR_M_IN_PIXEL);
-        String bathroomText = "Badezimmer " + bathroomArea + "m^2";
-        graphics2D.drawRect(bathroomX, bathroomY, bathroomWith, bathroomHeight);
-        graphics2D.drawString(bathroomText, bathroomX + bathroomWith / 2 - graphics2D.getFontMetrics().stringWidth(bathroomText) / 2, bathroomY + bathroomHeight / 2 - 5);
+        drawRoom("Badezimmer", MARGIN_IN_PIXEL + (int) (FACTOR_LIVING_ROOM_BATHROOM * APARTMENT_WIDTH_IN_PIXEL), MARGIN_IN_PIXEL + APARTMENT_HEIGHT_IN_PIXEL / 2, APARTMENT_WIDTH_IN_PIXEL - (int) (FACTOR_LIVING_ROOM_BATHROOM * APARTMENT_WIDTH_IN_PIXEL), APARTMENT_HEIGHT_IN_PIXEL / 2, graphics2D);
 
         // Footer
         graphics2D.drawLine(0, imageHeightInPixel - MARGIN_IN_PIXEL / 2 - 10, imageWidthInPixel, imageHeightInPixel - MARGIN_IN_PIXEL / 2 - 10);
@@ -108,6 +93,13 @@ public class PlanGenerator {
         long timeElapsed = System.currentTimeMillis() - start;
         System.out.println("Generated image in \u001B[34m" + timeElapsed / 1000.0 + "s\u001B[0m at path " + file.getAbsolutePath());
 
+    }
+
+    private void drawRoom(String roomName, int roomX, int roomY, int roomWidth, int roomHeight, Graphics2D graphics2D) {
+        int roomArea = roomWidth * roomHeight / (FACTOR_M_IN_PIXEL * FACTOR_M_IN_PIXEL);
+        String livingRoomText = roomName + " " + roomArea + "m^2";
+        graphics2D.drawRect(roomX, roomY, roomWidth, roomHeight);
+        graphics2D.drawString(livingRoomText, roomX + roomWidth / 2 - graphics2D.getFontMetrics().stringWidth(livingRoomText) / 2, roomY + roomHeight / 2 - 5);
     }
 
     private String getCurrentTime() {
