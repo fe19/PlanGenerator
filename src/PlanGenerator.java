@@ -70,9 +70,11 @@ public class PlanGenerator {
         int livingRoomY = MARGIN_IN_PIXEL + apartmentHeightInPixel / 2;
         int livingRoomWidth = (int) (0.7 * apartmentWidthInPixel);
         int livingRoomHeight = apartmentHeightInPixel / 2;
+        int livingRoomArea = livingRoomWidth * livingRoomHeight / (FACTOR_M_IN_PIXEL * FACTOR_M_IN_PIXEL);
+        String livingRoomText = "Wohnzimmer " + livingRoomArea + "m^2";
         graphics2D.drawRect(livingRoomX, livingRoomY, livingRoomWidth, livingRoomHeight);
-        String livingRoomText = "Wohnzimmer";
         graphics2D.drawString(livingRoomText, livingRoomX + livingRoomWidth / 2 - graphics2D.getFontMetrics().stringWidth(livingRoomText), livingRoomY + livingRoomHeight / 2 - 5);
+
 
         // Footer
         graphics2D.drawLine(0, imageHeightInPixel - MARGIN_IN_PIXEL / 2 - 10, imageWidthInPixel, imageHeightInPixel - MARGIN_IN_PIXEL / 2 - 10);
