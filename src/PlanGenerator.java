@@ -16,6 +16,8 @@ public class PlanGenerator {
     int FACTOR_M_IN_PIXEL = 100;
     int MARGIN_IN_PIXEL = 100;
     boolean IS_DARK_MODE = true;
+    double FACTOR_LIVING_ROOM_BATHROOM = 0.7;
+    double FACTOR_BEDROOM_KITCHEN = 0.6;
 
     public void generateImage() {
         long start = System.currentTimeMillis();
@@ -24,7 +26,7 @@ public class PlanGenerator {
 
         System.out.println("Breite:");
         //int apartmentWidthInM = scanner.nextInt();
-        int apartmentWidthInM = 10;
+        int apartmentWidthInM = 20;
 
         System.out.println("Höhe:");
         //int apartmentHeightInM = scanner.nextInt();
@@ -68,7 +70,7 @@ public class PlanGenerator {
         // living room
         int livingRoomX = MARGIN_IN_PIXEL;
         int livingRoomY = MARGIN_IN_PIXEL + apartmentHeightInPixel / 2;
-        int livingRoomWidth = (int) (0.7 * apartmentWidthInPixel);
+        int livingRoomWidth = (int) (FACTOR_LIVING_ROOM_BATHROOM * apartmentWidthInPixel);
         int livingRoomHeight = apartmentHeightInPixel / 2;
         int livingRoomArea = livingRoomWidth * livingRoomHeight / (FACTOR_M_IN_PIXEL * FACTOR_M_IN_PIXEL);
         String livingRoomText = "Wohnzimmer " + livingRoomArea + "m^2";
