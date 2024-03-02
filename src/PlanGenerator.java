@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Scanner;
+//import java.util.Scanner;
 
 public class PlanGenerator {
 
@@ -20,7 +20,7 @@ public class PlanGenerator {
     public void generateImage() {
         long start = System.currentTimeMillis();
 
-        Scanner scanner = new Scanner(System.in);
+        // Scanner scanner = new Scanner(System.in);
 
         System.out.println("Length:");
         //int length = scanner.nextInt();
