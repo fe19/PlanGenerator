@@ -23,19 +23,22 @@ public class PlanGenerator {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Breite:");
-        int widthInM = scanner.nextInt();
-        //int widthInM = 10;
+        //int apartmentWidthInM = scanner.nextInt();
+        int apartmentWidthInM = 10;
 
         System.out.println("Höhe:");
-        int heightInM = scanner.nextInt();
-        //int heightInM = 5;
+        //int apartmentHeightInM = scanner.nextInt();
+        int apartmentHeightInM = 5;
 
         System.out.println("Räume:");
-        int nbrRooms = scanner.nextInt();
-        //int nbrRooms = 3;
+        //int nbrRooms = scanner.nextInt();
+        int nbrRooms = 3;
         
-        int imageWidthInPixel = widthInM * FACTOR_M_IN_PIXEL + 2 * MARGIN_IN_PIXEL;
-        int imageHeightInPixel = heightInM * FACTOR_M_IN_PIXEL + 2 * MARGIN_IN_PIXEL;
+        int apartmentWidthInPixel = apartmentWidthInM * FACTOR_M_IN_PIXEL;
+        int apartmentHeightInPixel = apartmentHeightInM * FACTOR_M_IN_PIXEL;
+        
+        int imageWidthInPixel = apartmentWidthInPixel + 2 * MARGIN_IN_PIXEL;
+        int imageHeightInPixel = apartmentHeightInPixel + 2 * MARGIN_IN_PIXEL;
 
         BufferedImage bufferedImage = new BufferedImage(imageWidthInPixel, imageHeightInPixel, BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics2D = bufferedImage.createGraphics();
@@ -52,14 +55,24 @@ public class PlanGenerator {
         }
 
         // Header
-        graphics2D.drawString("Grundrissplan für " + nbrRooms + " Zimmer mit " + widthInM * heightInM + "m^2", 20, 35);
+        graphics2D.drawString("Grundrissplan für " + nbrRooms + " Zimmer mit " + apartmentWidthInM * apartmentHeightInM + "m^2", 20, 35);
         graphics2D.drawLine(0, MARGIN_IN_PIXEL / 2 + 10, imageWidthInPixel, MARGIN_IN_PIXEL / 2 + 10);
         //g2d.fillOval(0, 0, 5, 5);
 
         // Ground plan
-        graphics2D.drawRect(MARGIN_IN_PIXEL, MARGIN_IN_PIXEL, widthInM * FACTOR_M_IN_PIXEL, heightInM * FACTOR_M_IN_PIXEL);
-        graphics2D.drawString(String.valueOf(widthInM * FACTOR_M_IN_PIXEL), MARGIN_IN_PIXEL - 5 + widthInM * FACTOR_M_IN_PIXEL / 2, MARGIN_IN_PIXEL - 10);
-        graphics2D.drawString(String.valueOf(heightInM * FACTOR_M_IN_PIXEL), MARGIN_IN_PIXEL - 30, MARGIN_IN_PIXEL - 5 + heightInM * FACTOR_M_IN_PIXEL / 2);
+        graphics2D.drawRect(MARGIN_IN_PIXEL, MARGIN_IN_PIXEL, apartmentWidthInPixel, apartmentHeightInPixel);
+        graphics2D.drawString(String.valueOf(apartmentWidthInPixel), MARGIN_IN_PIXEL - 5 + apartmentWidthInPixel / 2, MARGIN_IN_PIXEL - 10);
+        graphics2D.drawString(String.valueOf(apartmentHeightInPixel), MARGIN_IN_PIXEL - 30, MARGIN_IN_PIXEL + 5 + apartmentHeightInPixel / 2);
+
+        // Rooms
+        // living room
+        int livingRoomX = MARGIN_IN_PIXEL;
+        int livingRoomY = MARGIN_IN_PIXEL + apartmentHeightInPixel / 2;
+        int livingRoomWidth = (int) (0.7 * apartmentWidthInPixel);
+        int livingRoomHeight = apartmentHeightInPixel / 2;
+        graphics2D.drawRect(livingRoomX, livingRoomY, livingRoomWidth, livingRoomHeight);
+        String livingRoomText = "Wohnzimmer";
+        graphics2D.drawString(livingRoomText, livingRoomX + livingRoomWidth / 2 - graphics2D.getFontMetrics().stringWidth(livingRoomText), livingRoomY + livingRoomHeight / 2 - 5);
 
         // Footer
         graphics2D.drawLine(0, imageHeightInPixel - MARGIN_IN_PIXEL / 2 - 10, imageWidthInPixel, imageHeightInPixel - MARGIN_IN_PIXEL / 2 - 10);
