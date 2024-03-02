@@ -80,8 +80,4 @@ public class PlanGenerator {
         return date.getDayOfMonth() + "." + date.getMonthValue()+ "." + date.getYear() + " " + time.getHour() + ":" + time.getMinute() + ":" + time.getSecond();
     }
 
-    private void drawGroundplan() {
-
-    }
-
 }
