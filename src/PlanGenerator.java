@@ -59,7 +59,6 @@ public class PlanGenerator {
         // Header
         graphics2D.drawString("Grundrissplan für " + NBR_ROOMS + " Zimmer mit " + APARTMENT_WITH_IN_M * APARTMENT_HEIGHT_IN_M + "m^2", 20, 35);
         graphics2D.drawLine(0, MARGIN_IN_PIXEL / 2 + 10, imageWidthInPixel, MARGIN_IN_PIXEL / 2 + 10);
-        //g2d.fillOval(0, 0, 5, 5);
 
         // Ground plan
         graphics2D.drawRect(MARGIN_IN_PIXEL, MARGIN_IN_PIXEL, APARTMENT_WIDTH_IN_PIXEL, APARTMENT_HEIGHT_IN_PIXEL);
@@ -68,11 +67,8 @@ public class PlanGenerator {
 
         // Rooms
         drawRoom("Wohnzimmer", MARGIN_IN_PIXEL, MARGIN_IN_PIXEL + APARTMENT_HEIGHT_IN_PIXEL / 2, (int) (FACTOR_LIVING_ROOM_BATHROOM * APARTMENT_WIDTH_IN_PIXEL), APARTMENT_HEIGHT_IN_PIXEL / 2, graphics2D);
-
         drawRoom("Badezimmer", MARGIN_IN_PIXEL + (int) (FACTOR_LIVING_ROOM_BATHROOM * APARTMENT_WIDTH_IN_PIXEL), MARGIN_IN_PIXEL + APARTMENT_HEIGHT_IN_PIXEL / 2, (int) (APARTMENT_WIDTH_IN_PIXEL * (1 - FACTOR_LIVING_ROOM_BATHROOM)), APARTMENT_HEIGHT_IN_PIXEL / 2, graphics2D);
-
         drawRoom("Schlafzimmer", MARGIN_IN_PIXEL, MARGIN_IN_PIXEL, (int) (APARTMENT_WIDTH_IN_PIXEL * FACTOR_BEDROOM_KITCHEN), APARTMENT_HEIGHT_IN_PIXEL / 2, graphics2D);
-
         drawRoom("Küche", MARGIN_IN_PIXEL + (int) (APARTMENT_WIDTH_IN_PIXEL * FACTOR_BEDROOM_KITCHEN), MARGIN_IN_PIXEL, (int) (APARTMENT_WIDTH_IN_PIXEL * (1 - FACTOR_BEDROOM_KITCHEN)), APARTMENT_HEIGHT_IN_PIXEL / 2, graphics2D);
 
         // Footer
