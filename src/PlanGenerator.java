@@ -13,8 +13,8 @@ public class PlanGenerator {
     String FILE_EXTENSION = "jpg"; // jpg has 72ppi = 2835 pixel per m
     String VISA = "fe";
     String PATH = ".";
-    int NBR_ROOMS = 3;
-    int APARTMENT_WITH_IN_M = 10;
+    int NBR_ROOMS;
+    int APARTMENT_WIDTH_IN_M = 10;
     int APARTMENT_HEIGHT_IN_M = 5;
     int FACTOR_M_IN_PIXEL = 100;
     int APARTMENT_WIDTH_IN_PIXEL;
@@ -32,11 +32,11 @@ public class PlanGenerator {
         //APARTMENT_WITH_IN_M = scanner.nextInt();
         System.out.println("Höhe:");
         //APARTMENT_HEIGHT_IN_M = scanner.nextInt();
-        System.out.println("Räume:");
-        //NBR_ROOMS = scanner.nextInt();
         scanner.close();
+
+        NBR_ROOMS = calculateNbrOfRooms(APARTMENT_WIDTH_IN_M, APARTMENT_HEIGHT_IN_M);
         
-        APARTMENT_WIDTH_IN_PIXEL = APARTMENT_WITH_IN_M * FACTOR_M_IN_PIXEL;
+        APARTMENT_WIDTH_IN_PIXEL = APARTMENT_WIDTH_IN_M * FACTOR_M_IN_PIXEL;
         APARTMENT_HEIGHT_IN_PIXEL = APARTMENT_HEIGHT_IN_M * FACTOR_M_IN_PIXEL;
         
         int imageWidthInPixel = APARTMENT_WIDTH_IN_PIXEL + 2 * MARGIN_IN_PIXEL;
@@ -57,7 +57,7 @@ public class PlanGenerator {
         }
 
         // Header
-        graphics2D.drawString("Grundrissplan für " + NBR_ROOMS + " Zimmer mit " + APARTMENT_WITH_IN_M * APARTMENT_HEIGHT_IN_M + "m^2", 20, 35);
+        graphics2D.drawString("Grundrissplan für " + NBR_ROOMS + " Zimmer mit " + APARTMENT_WIDTH_IN_M * APARTMENT_HEIGHT_IN_M + "m^2", 20, 35);
         graphics2D.drawLine(0, MARGIN_IN_PIXEL / 2 + 10, imageWidthInPixel, MARGIN_IN_PIXEL / 2 + 10);
 
         // Ground plan
@@ -100,6 +100,15 @@ public class PlanGenerator {
         String livingRoomText = roomName + " " + roomArea + "m^2";
         graphics2D.drawRect(roomX, roomY, roomWidth, roomHeight);
         graphics2D.drawString(livingRoomText, roomX + roomWidth / 2 - graphics2D.getFontMetrics().stringWidth(livingRoomText) / 2, roomY + roomHeight / 2 - 5);
+    }
+
+    private int calculateNbrOfRooms(int width, int height) {
+        int area = width * height;
+        int averageAreaKitchen = 12;
+        int averageAreaBath = 8;
+        int averageAreaRoom = 15;
+        int areaRooms = area - averageAreaKitchen - averageAreaBath;
+        return areaRooms / averageAreaRoom;
     }
 
     private String getCurrentTime() {
