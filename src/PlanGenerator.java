@@ -14,7 +14,7 @@ public class PlanGenerator {
     String VISA = "fe";
     String PATH = ".";
     int NBR_ROOMS;
-    int APARTMENT_WIDTH_IN_M = 10;
+    int APARTMENT_WIDTH_IN_M;
     int APARTMENT_HEIGHT_IN_M = 5;
     int FACTOR_M_IN_PIXEL = 100;
     int APARTMENT_WIDTH_IN_PIXEL;
@@ -29,9 +29,11 @@ public class PlanGenerator {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Breite:");
-        //APARTMENT_WITH_IN_M = scanner.nextInt();
+        //APARTMENT_WIDTH_IN_M = scanner.nextInt();
+        APARTMENT_WIDTH_IN_M = 10;
         System.out.println("Höhe:");
         //APARTMENT_HEIGHT_IN_M = scanner.nextInt();
+        APARTMENT_HEIGHT_IN_M = 5;
         scanner.close();
 
         NBR_ROOMS = calculateNbrOfRooms(APARTMENT_WIDTH_IN_M, APARTMENT_HEIGHT_IN_M);
