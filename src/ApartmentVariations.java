@@ -8,16 +8,19 @@ import java.time.LocalTime;
 import java.util.Scanner;
 
 public class ApartmentVariations {
-    String IMAGE_NAME = "Wohnungsaufteilung";
-    String FILE_EXTENSION = "jpg"; // jpg has 72ppi = 2835 pixel per m
-    String VISA = "fe";
-    String PATH = ".";
-    int AREA;
-    int FACTOR_M_IN_PIXEL = 100;
-    int BUILDING_WIDTH_IN_PIXEL;
-    int BUILDING_HEIGHT_IN_PIXEL;
-    int MARGIN_IN_PIXEL = 100;
-    boolean IS_DARK_MODE = true;
+    static final String IMAGE_NAME = "Wohnungsaufteilung";
+    static final String FILE_EXTENSION = "jpg"; // jpg has 72ppi = 2835 pixel per m
+    static final String VISA = "fe";
+    static final String PATH = ".";
+    static final int NBR_VARIATIONS = 4;
+    static int AREA;
+    static int FACTOR_M_IN_PIXEL = 20;
+    static int BUILDING_WIDTH_IN_PIXEL;
+    static int BUILDING_HEIGHT_IN_PIXEL;
+    static int IMAGE_WIDTH_IN_PIXEL = 1200;
+    static int IMAGE_HEIGHT_IN_PIXEL = 700;
+    static int MARGIN_IN_PIXEL = 100;
+    static boolean IS_DARK_MODE = true;
 
     public void generateApartments() {
         long start = System.currentTimeMillis();
@@ -32,10 +35,7 @@ public class ApartmentVariations {
         BUILDING_WIDTH_IN_PIXEL = (int) (FACTOR_M_IN_PIXEL * Math.sqrt(1.0 * AREA));
         BUILDING_HEIGHT_IN_PIXEL = (int) (FACTOR_M_IN_PIXEL * Math.sqrt(1.0 * AREA));
 
-        int imageWidthInPixel = BUILDING_WIDTH_IN_PIXEL + 2 * MARGIN_IN_PIXEL;
-        int imageHeightInPixel = BUILDING_HEIGHT_IN_PIXEL + 2 * MARGIN_IN_PIXEL;
-
-        BufferedImage bufferedImage = new BufferedImage(imageWidthInPixel, imageHeightInPixel, BufferedImage.TYPE_INT_RGB);
+        BufferedImage bufferedImage = new BufferedImage(IMAGE_WIDTH_IN_PIXEL, IMAGE_HEIGHT_IN_PIXEL, BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics2D = bufferedImage.createGraphics();
 
         if (IS_DARK_MODE) {
@@ -44,14 +44,14 @@ public class ApartmentVariations {
         } else {
             // we need to draw a filled rect with white since setBackground(Color.white) does not work
             graphics2D.setColor(Color.white);
-            graphics2D.fillRect(0,0,imageWidthInPixel, imageHeightInPixel);
+            graphics2D.fillRect(0,0,IMAGE_WIDTH_IN_PIXEL, IMAGE_HEIGHT_IN_PIXEL);
             graphics2D.setColor(Color.black);
-            graphics2D.drawRect(0,0,imageWidthInPixel - 1, imageWidthInPixel - 1);
+            graphics2D.drawRect(0,0,IMAGE_WIDTH_IN_PIXEL - 1, IMAGE_WIDTH_IN_PIXEL - 1);
         }
 
         // Header
         graphics2D.drawString("Aufteilung von " + AREA + " m^2 in Wohnungen " + "m^2", 20, 35);
-        graphics2D.drawLine(0, MARGIN_IN_PIXEL / 2 + 10, imageWidthInPixel, MARGIN_IN_PIXEL / 2 + 10);
+        graphics2D.drawLine(0, MARGIN_IN_PIXEL / 2 + 10, IMAGE_WIDTH_IN_PIXEL, MARGIN_IN_PIXEL / 2 + 10);
 
         // Ground plan
         graphics2D.drawRect(MARGIN_IN_PIXEL, MARGIN_IN_PIXEL, BUILDING_WIDTH_IN_PIXEL, BUILDING_HEIGHT_IN_PIXEL);
@@ -59,13 +59,13 @@ public class ApartmentVariations {
         graphics2D.drawString(String.valueOf(BUILDING_HEIGHT_IN_PIXEL), MARGIN_IN_PIXEL - 30, MARGIN_IN_PIXEL + 5 + BUILDING_HEIGHT_IN_PIXEL / 2);
 
         // Footer
-        graphics2D.drawLine(0, imageHeightInPixel - MARGIN_IN_PIXEL / 2 - 10, imageWidthInPixel, imageHeightInPixel - MARGIN_IN_PIXEL / 2 - 10);
-        graphics2D.drawString("Gezeichnet: " + getCurrentTime(), 20, imageHeightInPixel - 25);
-        graphics2D.drawLine(300, imageHeightInPixel - MARGIN_IN_PIXEL / 2 - 10, 300, imageHeightInPixel);
-        graphics2D.drawString("Author: " + VISA, 310, imageHeightInPixel - 25);
-        graphics2D.drawLine(500, imageHeightInPixel - MARGIN_IN_PIXEL / 2 - 10, 500, imageHeightInPixel);
-        graphics2D.drawString("M: 1:" + 100, 510, imageHeightInPixel - 25);
-        graphics2D.drawLine(700, imageHeightInPixel - MARGIN_IN_PIXEL / 2 - 10, 700, imageHeightInPixel);
+        graphics2D.drawLine(0, IMAGE_HEIGHT_IN_PIXEL - MARGIN_IN_PIXEL / 2 - 10, IMAGE_WIDTH_IN_PIXEL, IMAGE_HEIGHT_IN_PIXEL - MARGIN_IN_PIXEL / 2 - 10);
+        graphics2D.drawString("Gezeichnet: " + getCurrentTime(), 20, IMAGE_HEIGHT_IN_PIXEL - 25);
+        graphics2D.drawLine(300, IMAGE_HEIGHT_IN_PIXEL - MARGIN_IN_PIXEL / 2 - 10, 300, IMAGE_HEIGHT_IN_PIXEL);
+        graphics2D.drawString("Author: " + VISA, 310, IMAGE_HEIGHT_IN_PIXEL - 25);
+        graphics2D.drawLine(500, IMAGE_HEIGHT_IN_PIXEL - MARGIN_IN_PIXEL / 2 - 10, 500, IMAGE_HEIGHT_IN_PIXEL);
+        graphics2D.drawString("M: ", 510, IMAGE_HEIGHT_IN_PIXEL - 25);
+        graphics2D.drawLine(700, IMAGE_HEIGHT_IN_PIXEL - MARGIN_IN_PIXEL / 2 - 10, 700, IMAGE_HEIGHT_IN_PIXEL);
 
         graphics2D.dispose();
 
@@ -80,6 +80,13 @@ public class ApartmentVariations {
         long timeElapsed = System.currentTimeMillis() - start;
         System.out.println("Generated image in \u001B[34m" + timeElapsed / 1000.0 + "s\u001B[0m at path " + file.getAbsolutePath());
 
+    }
+
+    private void drawApartmentVariation(String variationName, int roomX, int roomY, int roomWidth, int roomHeight, Graphics2D graphics2D) {
+        int roomArea = roomWidth * roomHeight / (FACTOR_M_IN_PIXEL * FACTOR_M_IN_PIXEL);
+        String livingRoomText = variationName + " " + roomArea + "m^2";
+        graphics2D.drawRect(roomX, roomY, roomWidth, roomHeight);
+        graphics2D.drawString(livingRoomText, roomX + roomWidth / 2 - graphics2D.getFontMetrics().stringWidth(livingRoomText) / 2, roomY + roomHeight / 2 - 5);
     }
 
     private String getCurrentTime() {
