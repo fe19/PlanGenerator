@@ -1,1 +1,32 @@
 This application allows to create an automatic floor plan for a house or an apartment based on inputs.
+
+
+
+# Diskussion 10.3.2024
+
+## Bruttogeschossfläche in Wohnungen aufteilen
+
+Input:
+- Bruttogeschossfläche. Z.B. 400m^2 pro Etage
+- Erweiterung Höhe für Gebäude. Z.B. 3m pro Etage
+- (Optional) Anzahl gewünschte Wohungen. Z.B. 3 2.5 Zimmerwohnungen, 3.5 ZiWo
+
+Output:
+- Plan mit Wohnungen
+- Fünf verschiedene Varianten (Zufall)
+
+Typische Wohnflächen:
+- 2.5 Zimmerwohnungen = 65 - 75 m^2, 8-10%
+- 3.5 Zimmerwohnungen = 90 - 100 m^2, 30-40%
+- 4.5 Zimmerwohnungen = 115 - 125 m^2, 45-52%
+- 5.5 Zimmerwohnungen = 125 - 135 m^2, 11%
+- Treppenhaus mit Lift = 15 m^2 (in der Regel in der Mitte)
+
+Ziel:
+- Möglichst hohe Effizienz. D.h. viel Wohnraum/Nutzfläche. Z.B. wenig Platz für Treppenhaus
+- Effizienz berechnen?
+- Energieverbrauch? Nachhaltigkeit.
+
+## Erweiterungen
+Mögliche Rendite pro Variante berechnen.
+
