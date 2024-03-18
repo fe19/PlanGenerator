@@ -3,7 +3,11 @@ public class Main {
 
         PlanGenerator plan = new PlanGenerator();
 
-        plan.generateImage();
+        //plan.generateImage();
+
+        Apartment apartment = new Apartment();
+
+        apartment.generateApartments();
 
     }
 }
