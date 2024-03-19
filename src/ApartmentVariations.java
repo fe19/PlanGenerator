@@ -12,7 +12,7 @@ public class ApartmentVariations {
     static final String FILE_EXTENSION = "jpg"; // jpg has 72ppi = 2835 pixel per m
     static final String VISA = "fe";
     static final String PATH = ".";
-    static final int NBR_VARIATIONS = 4;
+    static final int NBR_VARIATIONS = 3;
     static int AREA;
     static int FACTOR_M_IN_PIXEL = 20;
     static int BUILDING_WIDTH_IN_PIXEL;
