@@ -5,9 +5,9 @@ public class Main {
 
         //plan.generateImage();
 
-        ApartmentVariations apartmentVariations = new ApartmentVariations();
+        ApartmentSegmentationGenerator apartmentSegmentationGenerator = new ApartmentSegmentationGenerator();
 
-        apartmentVariations.generateApartments();
+        apartmentSegmentationGenerator.generateApartments();
 
     }
 }
