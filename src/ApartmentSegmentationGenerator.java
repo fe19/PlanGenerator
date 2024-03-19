@@ -115,6 +115,22 @@ public class ApartmentSegmentationGenerator {
 
         graphics2D.drawRect(buildingX, buildingY, BUILDING_WIDTH_IN_PIXEL, BUILDING_HEIGHT_IN_PIXEL);
 
+        int h1InM = getVariationLine(BUILDING_HEIGHT_IN_M);
+        int h2InM = BUILDING_HEIGHT_IN_M - h1InM;
+        int h1InPixel = h1InM * FACTOR_M_IN_PIXEL;
+        int h2InPixel = h2InM * FACTOR_M_IN_PIXEL;
+        int areaApartment1 = (int) (h1InM * BUILDING_WIDTH_IN_M * (1.0 - WALL_AREA_IN_PERCENTAGE) - STAIRCASE_AREA_IN_SQUARE_M * h1InM / BUILDING_HEIGHT_IN_M);
+        int areaApartment2 = (int) (h2InM * BUILDING_WIDTH_IN_M * (1.0 - WALL_AREA_IN_PERCENTAGE) - STAIRCASE_AREA_IN_SQUARE_M * h2InM / BUILDING_HEIGHT_IN_M);
+        String roomsApartment1 = getRooms(areaApartment1) + "Zi";
+        String roomsApartment2 = getRooms(areaApartment2) + "Zi";
+
+        graphics2D.drawRect(buildingX, buildingY, BUILDING_WIDTH_IN_PIXEL, h1InPixel);
+        graphics2D.drawString(roomsApartment1, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - getTextLength(roomsApartment1) / 2, buildingY + h1InPixel / 2 + 10);
+
+        graphics2D.drawRect(buildingX, buildingY + h1InPixel, BUILDING_WIDTH_IN_PIXEL, h2InPixel);
+        graphics2D.drawString(roomsApartment2, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - getTextLength(roomsApartment1) / 2, buildingY + h1InPixel + h2InPixel / 2 + 10);
+
+
         Font font = new Font(null, Font.PLAIN, 10);
         graphics2D.setFont(font);
 
@@ -127,6 +143,23 @@ public class ApartmentSegmentationGenerator {
         graphics2D.setFont(DEFAULT_FONT);
 
         graphics2D.drawString(variationName, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - getTextLength(variationText) / 2, buildingY + VARIATION_BOX_HEIGHT_IN_PIXEL - MARGIN_IN_PIXEL - 20);
+    }
+
+    private double getRooms(int area) {
+        if (area < 65) {
+            return 2.5;
+        } else if(area < 80) {
+            return 3.5;
+        } else if (area < 120) {
+            return 4.5;
+        } else {
+            return 5.5;
+        }
+    }
+
+    private int getVariationLine(int heightInMeter) {
+        int minimum = 5;
+        return (int) (Math.random() * (heightInMeter - 2 * minimum)) + minimum;
     }
 
     private int getTextLength(String text) {
