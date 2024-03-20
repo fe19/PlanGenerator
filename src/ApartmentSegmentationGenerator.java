@@ -69,7 +69,7 @@ public class ApartmentSegmentationGenerator {
             graphics2D.drawRect(0,0,IMAGE_WIDTH_IN_PIXEL - 1, IMAGE_WIDTH_IN_PIXEL - 1);
         }
 
-        // Header
+        // Header TODO Extract into method. Maybe add draw package
         graphics2D.drawString("Varianten zur Wohnungsaufteilung mit einem Grundriss von " + BUILDING_WIDTH_IN_M * BUILDING_HEIGHT_IN_M + "m^2. "
                 + "Die Nettowohnfläche beträgt " + BUILDING_AREA_IN_SQUARE_M + "m^2 ("
                 + "abzüglich " + 100 * WALL_AREA_IN_PERCENTAGE + "% = " + (int) (BUILDING_WIDTH_IN_M * BUILDING_HEIGHT_IN_M * WALL_AREA_IN_PERCENTAGE) + "m^2 für die Wände"
@@ -126,6 +126,7 @@ public class ApartmentSegmentationGenerator {
 
         graphics2D.drawRect(buildingX, buildingY, BUILDING_WIDTH_IN_PIXEL, h1InPixel);
         graphics2D.drawString(roomsApartment1, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - getTextLength(roomsApartment1) / 2, buildingY + h1InPixel / 2 + 10);
+        // TODO Add area
 
         graphics2D.drawRect(buildingX, buildingY + h1InPixel, BUILDING_WIDTH_IN_PIXEL, h2InPixel);
         graphics2D.drawString(roomsApartment2, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - getTextLength(roomsApartment1) / 2, buildingY + h1InPixel + h2InPixel / 2 + 10);
