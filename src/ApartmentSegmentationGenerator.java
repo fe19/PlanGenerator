@@ -123,13 +123,16 @@ public class ApartmentSegmentationGenerator {
         int areaApartment2 = (int) (h2InM * BUILDING_WIDTH_IN_M * (1.0 - WALL_AREA_IN_PERCENTAGE) - STAIRCASE_AREA_IN_SQUARE_M * h2InM / BUILDING_HEIGHT_IN_M);
         String roomsApartment1 = getRooms(areaApartment1) + "Zi";
         String roomsApartment2 = getRooms(areaApartment2) + "Zi";
+        String sizeApartment1 = h1InM * BUILDING_WIDTH_IN_M + "m^2";
+        String sizeApartment2 = h2InM * BUILDING_WIDTH_IN_M + "m^2";
 
         graphics2D.drawRect(buildingX, buildingY, BUILDING_WIDTH_IN_PIXEL, h1InPixel);
-        graphics2D.drawString(roomsApartment1, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - getTextLength(roomsApartment1) / 2, buildingY + h1InPixel / 2 + 10);
-        // TODO Add area
+        graphics2D.drawString(roomsApartment1, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - getTextLength(roomsApartment1) / 2, buildingY + h1InPixel / 2 - getTextHeight(graphics2D) / 3);
+        graphics2D.drawString(sizeApartment1, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - getTextLength(sizeApartment1) / 2, buildingY + h1InPixel / 2 + getTextHeight(graphics2D));
 
         graphics2D.drawRect(buildingX, buildingY + h1InPixel, BUILDING_WIDTH_IN_PIXEL, h2InPixel);
-        graphics2D.drawString(roomsApartment2, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - getTextLength(roomsApartment1) / 2, buildingY + h1InPixel + h2InPixel / 2 + 10);
+        graphics2D.drawString(roomsApartment2, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - getTextLength(roomsApartment1) / 2, buildingY + h1InPixel + h2InPixel / 2 - getTextHeight(graphics2D) / 3);
+        graphics2D.drawString(sizeApartment2, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - getTextLength(sizeApartment2) / 2, buildingY + h1InPixel + h2InPixel / 2 + getTextHeight(graphics2D));
 
 
         Font font = new Font(null, Font.PLAIN, 10);
@@ -167,6 +170,10 @@ public class ApartmentSegmentationGenerator {
         BufferedImage bufferedImage = new BufferedImage(500, 100, BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics2D = bufferedImage.createGraphics();
         return graphics2D.getFontMetrics().stringWidth(text);
+    }
+
+    private int getTextHeight(Graphics2D graphics2D) {
+        return graphics2D.getFontMetrics().getMaxAscent();
     }
 
     private String getCurrentTime() {
