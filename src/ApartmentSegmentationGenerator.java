@@ -111,7 +111,7 @@ public class ApartmentSegmentationGenerator {
         int buildingY = 2 * MARGIN_IN_PIXEL;
         String xLegend = BUILDING_WIDTH_IN_M + "m";
         String yLegend = BUILDING_HEIGHT_IN_M + "m";
-        String variationText = variationName;
+        String variationText = variationName + "";
 
         graphics2D.drawRect(buildingX, buildingY, BUILDING_WIDTH_IN_PIXEL, BUILDING_HEIGHT_IN_PIXEL);
 
@@ -127,26 +127,26 @@ public class ApartmentSegmentationGenerator {
         String sizeApartment2 = h2InM * BUILDING_WIDTH_IN_M + "m^2";
 
         graphics2D.drawRect(buildingX, buildingY, BUILDING_WIDTH_IN_PIXEL, h1InPixel);
-        graphics2D.drawString(roomsApartment1, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - getTextLength(roomsApartment1) / 2, buildingY + h1InPixel / 2 - getTextHeight(graphics2D) / 3);
-        graphics2D.drawString(sizeApartment1, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - getTextLength(sizeApartment1) / 2, buildingY + h1InPixel / 2 + getTextHeight(graphics2D));
+        graphics2D.drawString(roomsApartment1, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - getTextLength(roomsApartment1, graphics2D) / 2, buildingY + h1InPixel / 2 - getTextHeight(graphics2D) / 3);
+        graphics2D.drawString(sizeApartment1, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - getTextLength(sizeApartment1, graphics2D) / 2, buildingY + h1InPixel / 2 + getTextHeight(graphics2D));
 
         graphics2D.drawRect(buildingX, buildingY + h1InPixel, BUILDING_WIDTH_IN_PIXEL, h2InPixel);
-        graphics2D.drawString(roomsApartment2, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - getTextLength(roomsApartment1) / 2, buildingY + h1InPixel + h2InPixel / 2 - getTextHeight(graphics2D) / 3);
-        graphics2D.drawString(sizeApartment2, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - getTextLength(sizeApartment2) / 2, buildingY + h1InPixel + h2InPixel / 2 + getTextHeight(graphics2D));
+        graphics2D.drawString(roomsApartment2, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - getTextLength(roomsApartment1, graphics2D) / 2, buildingY + h1InPixel + h2InPixel / 2 - getTextHeight(graphics2D) / 3);
+        graphics2D.drawString(sizeApartment2, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - getTextLength(sizeApartment2, graphics2D) / 2, buildingY + h1InPixel + h2InPixel / 2 + getTextHeight(graphics2D));
 
 
         Font font = new Font(null, Font.PLAIN, 10);
         graphics2D.setFont(font);
 
-        graphics2D.drawString(xLegend, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - getTextLength(xLegend) / 2, buildingY - 10);
+        graphics2D.drawString(xLegend, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - getTextLength(xLegend, graphics2D) / 2, buildingY - 10);
 
         AffineTransform affineTransform = new AffineTransform();
         affineTransform.rotate(-Math.PI/2);
         graphics2D.setFont(font.deriveFont(affineTransform));
-        graphics2D.drawString(yLegend, buildingX - 10, buildingY + BUILDING_HEIGHT_IN_PIXEL / 2 + getTextLength(yLegend) / 2);
+        graphics2D.drawString(yLegend, buildingX - 10, buildingY + BUILDING_HEIGHT_IN_PIXEL / 2 + getTextLength(yLegend, graphics2D) / 2);
         graphics2D.setFont(DEFAULT_FONT);
 
-        graphics2D.drawString(variationName, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - getTextLength(variationText) / 2, buildingY + VARIATION_BOX_HEIGHT_IN_PIXEL - MARGIN_IN_PIXEL - 20);
+        graphics2D.drawString(variationName, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - getTextLength(variationText, graphics2D) / 2, buildingY + VARIATION_BOX_HEIGHT_IN_PIXEL - MARGIN_IN_PIXEL - 20);
     }
 
     private double getRooms(int area) {
@@ -166,9 +166,7 @@ public class ApartmentSegmentationGenerator {
         return (int) (Math.random() * (heightInMeter - 2 * minimum)) + minimum;
     }
 
-    private int getTextLength(String text) {
-        BufferedImage bufferedImage = new BufferedImage(500, 100, BufferedImage.TYPE_INT_RGB);
-        Graphics2D graphics2D = bufferedImage.createGraphics();
+    private int getTextLength(String text, Graphics2D graphics2D) {
         return graphics2D.getFontMetrics().stringWidth(text);
     }
 
