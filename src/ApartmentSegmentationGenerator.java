@@ -119,12 +119,12 @@ public class ApartmentSegmentationGenerator {
         int h2InM = BUILDING_HEIGHT_IN_M - h1InM;
         int h1InPixel = h1InM * FACTOR_M_IN_PIXEL;
         int h2InPixel = h2InM * FACTOR_M_IN_PIXEL;
-        int areaApartment1 = (int) (h1InM * BUILDING_WIDTH_IN_M * (1.0 - WALL_AREA_IN_PERCENTAGE) - STAIRCASE_AREA_IN_SQUARE_M * h1InM / BUILDING_HEIGHT_IN_M);
-        int areaApartment2 = (int) (h2InM * BUILDING_WIDTH_IN_M * (1.0 - WALL_AREA_IN_PERCENTAGE) - STAIRCASE_AREA_IN_SQUARE_M * h2InM / BUILDING_HEIGHT_IN_M);
+        int areaApartment1 = getNettoArea(h1InM);
+        int areaApartment2 = getNettoArea(h2InM);
+        String sizeApartment1 = areaApartment1 + "m^2";
+        String sizeApartment2 = areaApartment2+ "m^2";
         String roomsApartment1 = getRooms(areaApartment1) + "Zi";
         String roomsApartment2 = getRooms(areaApartment2) + "Zi";
-        String sizeApartment1 = h1InM * BUILDING_WIDTH_IN_M + "m^2";
-        String sizeApartment2 = h2InM * BUILDING_WIDTH_IN_M + "m^2";
 
         graphics2D.drawRect(buildingX, buildingY, BUILDING_WIDTH_IN_PIXEL, h1InPixel);
         graphics2D.drawString(roomsApartment1, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - getTextLength(roomsApartment1, graphics2D) / 2, buildingY + h1InPixel / 2 - getTextHeight(graphics2D) / 3);
@@ -159,6 +159,10 @@ public class ApartmentSegmentationGenerator {
         } else {
             return 5.5;
         }
+    }
+
+    private int getNettoArea(int height) {
+        return (int) (BUILDING_WIDTH_IN_M * height * (1.0 - WALL_AREA_IN_PERCENTAGE) - STAIRCASE_AREA_IN_SQUARE_M * height / BUILDING_HEIGHT_IN_M);
     }
 
     private int getVariationLine(int heightInMeter) {
