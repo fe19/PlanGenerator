@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public class Apartment {
 
     public static double getRooms(int area) {
@@ -15,4 +17,21 @@ public class Apartment {
     public static int getNettoArea(int width, int height, double wallAreaInPercent, int staircaseArea) {
         return (int) (width * height * (1.0 - wallAreaInPercent) - staircaseArea * height / height);
     }
+
+    public static void setColor(Graphics2D graphics2D, double roomSize) {
+        if (roomSize == 2.5) {
+            graphics2D.setColor(new Color(138, 211, 234));
+        } else if (roomSize == 3.5) {
+            graphics2D.setColor(new Color(177, 238, 180));
+        } else if (roomSize == 4.5) {
+            graphics2D.setColor(new Color(245, 152, 152));
+        } else if (roomSize == 5.5) {
+            graphics2D.setColor(new Color(236, 236, 45));
+        }
+    }
+
+    public static void resetColor(Graphics2D graphics2D) {
+        graphics2D.setColor(Color.BLACK);
+    }
+
 }

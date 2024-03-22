@@ -110,14 +110,17 @@ public class ApartmentSegmentationGenerator {
         String roomsApartment1 = Apartment.getRooms(areaApartment1) + "Zi";
         String roomsApartment2 = Apartment.getRooms(areaApartment2) + "Zi";
 
-        graphics2D.drawRect(buildingX, buildingY, BUILDING_WIDTH_IN_PIXEL, h1InPixel);
+        Apartment.setColor(graphics2D, Apartment.getRooms(areaApartment1));
+        graphics2D.fillRect(buildingX, buildingY, BUILDING_WIDTH_IN_PIXEL, h1InPixel);
+        Apartment.resetColor(graphics2D);
         graphics2D.drawString(roomsApartment1, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - Util.getTextLength(roomsApartment1, graphics2D) / 2, buildingY + h1InPixel / 2 - Util.getTextHeight(graphics2D) / 3);
         graphics2D.drawString(sizeApartment1, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - Util.getTextLength(sizeApartment1, graphics2D) / 2, buildingY + h1InPixel / 2 + Util.getTextHeight(graphics2D));
 
-        graphics2D.drawRect(buildingX, buildingY + h1InPixel, BUILDING_WIDTH_IN_PIXEL, h2InPixel);
+        Apartment.setColor(graphics2D, Apartment.getRooms(areaApartment2));
+        graphics2D.fillRect(buildingX, buildingY + h1InPixel, BUILDING_WIDTH_IN_PIXEL, h2InPixel);
+        Apartment.resetColor(graphics2D);
         graphics2D.drawString(roomsApartment2, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - Util.getTextLength(roomsApartment1, graphics2D) / 2, buildingY + h1InPixel + h2InPixel / 2 - Util.getTextHeight(graphics2D) / 3);
         graphics2D.drawString(sizeApartment2, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - Util.getTextLength(sizeApartment2, graphics2D) / 2, buildingY + h1InPixel + h2InPixel / 2 + Util.getTextHeight(graphics2D));
-
 
         Font font = new Font(null, Font.PLAIN, 10);
         graphics2D.setFont(font);
