@@ -58,6 +58,51 @@ public class ApartmentSegmentationGenerator {
         BufferedImage bufferedImage = new BufferedImage(IMAGE_WIDTH_IN_PIXEL, IMAGE_HEIGHT_IN_PIXEL, BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics2D = bufferedImage.createGraphics();
 
+        switchDarkMode(graphics2D);
+
+        // Header TODO Extract into method. Maybe add draw package
+        drawHeader(graphics2D);
+
+        // Ground plan
+        drawApartmentVariation("Variante 1", 0, graphics2D);
+        drawApartmentVariation("Variante 2", 1, graphics2D);
+        drawApartmentVariation("Variante 3", 2, graphics2D);
+        drawApartmentVariation("Variante 4", 3, graphics2D);
+
+        // Footer
+        drawFooter(graphics2D);
+
+        File file = getFile(bufferedImage, graphics2D);
+
+        long timeElapsed = System.currentTimeMillis() - start;
+        System.out.println("Generated image in \u001B[34m" + timeElapsed / 1000.0 + "s\u001B[0m at path " + file.getAbsolutePath());
+
+    }
+
+    private static File getFile(BufferedImage bufferedImage, Graphics2D graphics2D) {
+        graphics2D.dispose();
+
+        File file = new File(IMAGE_FILE_PATH + File.separator + IMAGE_FILE_NAME + "." + IMAGE_FILE_EXTENSION);
+
+        try {
+            ImageIO.write(bufferedImage, IMAGE_FILE_EXTENSION, file);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return file;
+    }
+
+    private void drawFooter(Graphics2D graphics2D) {
+        graphics2D.drawLine(0, IMAGE_HEIGHT_IN_PIXEL - MARGIN_IN_PIXEL / 2 - 10, IMAGE_WIDTH_IN_PIXEL, IMAGE_HEIGHT_IN_PIXEL - MARGIN_IN_PIXEL / 2 - 10);
+        graphics2D.drawString("Gezeichnet: " + getCurrentTime(), 20, IMAGE_HEIGHT_IN_PIXEL - 25);
+        graphics2D.drawLine(300, IMAGE_HEIGHT_IN_PIXEL - MARGIN_IN_PIXEL / 2 - 10, 300, IMAGE_HEIGHT_IN_PIXEL);
+        graphics2D.drawString("Author: " + CREATOR_VISA, 310, IMAGE_HEIGHT_IN_PIXEL - 25);
+        graphics2D.drawLine(500, IMAGE_HEIGHT_IN_PIXEL - MARGIN_IN_PIXEL / 2 - 10, 500, IMAGE_HEIGHT_IN_PIXEL);
+        graphics2D.drawString("M: ", 510, IMAGE_HEIGHT_IN_PIXEL - 25);
+        graphics2D.drawLine(700, IMAGE_HEIGHT_IN_PIXEL - MARGIN_IN_PIXEL / 2 - 10, 700, IMAGE_HEIGHT_IN_PIXEL);
+    }
+
+    private static void switchDarkMode(Graphics2D graphics2D) {
         if (IS_DARK_MODE) {
             graphics2D.setBackground(Color.black);
             graphics2D.setColor(Color.white);
@@ -68,42 +113,14 @@ public class ApartmentSegmentationGenerator {
             graphics2D.setColor(Color.black);
             graphics2D.drawRect(0,0,IMAGE_WIDTH_IN_PIXEL - 1, IMAGE_WIDTH_IN_PIXEL - 1);
         }
+    }
 
-        // Header TODO Extract into method. Maybe add draw package
+    private static void drawHeader(Graphics2D graphics2D) {
         graphics2D.drawString("Varianten zur Wohnungsaufteilung mit einem Grundriss von " + BUILDING_WIDTH_IN_M * BUILDING_HEIGHT_IN_M + "m^2. "
                 + "Die Nettowohnfläche beträgt " + BUILDING_AREA_IN_SQUARE_M + "m^2 ("
                 + "abzüglich " + 100 * WALL_AREA_IN_PERCENTAGE + "% = " + (int) (BUILDING_WIDTH_IN_M * BUILDING_HEIGHT_IN_M * WALL_AREA_IN_PERCENTAGE) + "m^2 für die Wände"
                 + " und " + STAIRCASE_AREA_IN_SQUARE_M + "m^2 für das Treppenhaus).", 20, 35);
         graphics2D.drawLine(0, MARGIN_IN_PIXEL / 2 + 10, IMAGE_WIDTH_IN_PIXEL, MARGIN_IN_PIXEL / 2 + 10);
-
-        // Ground plan
-        drawApartmentVariation("Variante 1", 0, graphics2D);
-        drawApartmentVariation("Variante 2", 1, graphics2D);
-        drawApartmentVariation("Variante 3", 2, graphics2D);
-        drawApartmentVariation("Variante 4", 3, graphics2D);
-
-        // Footer
-        graphics2D.drawLine(0, IMAGE_HEIGHT_IN_PIXEL - MARGIN_IN_PIXEL / 2 - 10, IMAGE_WIDTH_IN_PIXEL, IMAGE_HEIGHT_IN_PIXEL - MARGIN_IN_PIXEL / 2 - 10);
-        graphics2D.drawString("Gezeichnet: " + getCurrentTime(), 20, IMAGE_HEIGHT_IN_PIXEL - 25);
-        graphics2D.drawLine(300, IMAGE_HEIGHT_IN_PIXEL - MARGIN_IN_PIXEL / 2 - 10, 300, IMAGE_HEIGHT_IN_PIXEL);
-        graphics2D.drawString("Author: " + CREATOR_VISA, 310, IMAGE_HEIGHT_IN_PIXEL - 25);
-        graphics2D.drawLine(500, IMAGE_HEIGHT_IN_PIXEL - MARGIN_IN_PIXEL / 2 - 10, 500, IMAGE_HEIGHT_IN_PIXEL);
-        graphics2D.drawString("M: ", 510, IMAGE_HEIGHT_IN_PIXEL - 25);
-        graphics2D.drawLine(700, IMAGE_HEIGHT_IN_PIXEL - MARGIN_IN_PIXEL / 2 - 10, 700, IMAGE_HEIGHT_IN_PIXEL);
-
-        graphics2D.dispose();
-
-        File file = new File(IMAGE_FILE_PATH + File.separator + IMAGE_FILE_NAME + "." + IMAGE_FILE_EXTENSION);
-
-        try {
-            ImageIO.write(bufferedImage, "jpg", file);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        long timeElapsed = System.currentTimeMillis() - start;
-        System.out.println("Generated image in \u001B[34m" + timeElapsed / 1000.0 + "s\u001B[0m at path " + file.getAbsolutePath());
-
     }
 
     private void drawApartmentVariation(String variationName, int variationNumber, Graphics2D graphics2D) {
