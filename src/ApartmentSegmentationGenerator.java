@@ -99,7 +99,7 @@ public class ApartmentSegmentationGenerator {
 
         graphics2D.drawRect(buildingX, buildingY, BUILDING_WIDTH_IN_PIXEL, BUILDING_HEIGHT_IN_PIXEL);
 
-        int h1InM = getVariationLine(BUILDING_HEIGHT_IN_M);
+        int h1InM = HLineVariation.getVariationLine(BUILDING_HEIGHT_IN_M);
         int h2InM = BUILDING_HEIGHT_IN_M - h1InM;
         int h1InPixel = h1InM * FACTOR_M_IN_PIXEL;
         int h2InPixel = h2InM * FACTOR_M_IN_PIXEL;
@@ -131,15 +131,6 @@ public class ApartmentSegmentationGenerator {
         graphics2D.setFont(DEFAULT_FONT);
 
         graphics2D.drawString(variationName, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - Util.getTextLength(variationText, graphics2D) / 2, buildingY + VARIATION_BOX_HEIGHT_IN_PIXEL - MARGIN_IN_PIXEL - 20);
-    }
-
-
-
-
-
-    private int getVariationLine(int heightInMeter) {
-        int minimum = 5;
-        return (int) (Math.random() * (heightInMeter - 2 * minimum)) + minimum;
     }
 
 }
