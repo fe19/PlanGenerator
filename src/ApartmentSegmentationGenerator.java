@@ -103,12 +103,12 @@ public class ApartmentSegmentationGenerator {
         int h2InM = BUILDING_HEIGHT_IN_M - h1InM;
         int h1InPixel = h1InM * FACTOR_M_IN_PIXEL;
         int h2InPixel = h2InM * FACTOR_M_IN_PIXEL;
-        int areaApartment1 = getNettoArea(h1InM);
-        int areaApartment2 = getNettoArea(h2InM);
+        int areaApartment1 = Apartment.getNettoArea(BUILDING_WIDTH_IN_M, h1InM, WALL_AREA_IN_PERCENTAGE, STAIRCASE_AREA_IN_SQUARE_M);
+        int areaApartment2 = Apartment.getNettoArea(BUILDING_WIDTH_IN_M, h2InM, WALL_AREA_IN_PERCENTAGE, STAIRCASE_AREA_IN_SQUARE_M);
         String sizeApartment1 = areaApartment1 + "m^2";
         String sizeApartment2 = areaApartment2+ "m^2";
-        String roomsApartment1 = getRooms(areaApartment1) + "Zi";
-        String roomsApartment2 = getRooms(areaApartment2) + "Zi";
+        String roomsApartment1 = Apartment.getRooms(areaApartment1) + "Zi";
+        String roomsApartment2 = Apartment.getRooms(areaApartment2) + "Zi";
 
         graphics2D.drawRect(buildingX, buildingY, BUILDING_WIDTH_IN_PIXEL, h1InPixel);
         graphics2D.drawString(roomsApartment1, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - Util.getTextLength(roomsApartment1, graphics2D) / 2, buildingY + h1InPixel / 2 - Util.getTextHeight(graphics2D) / 3);
@@ -133,21 +133,9 @@ public class ApartmentSegmentationGenerator {
         graphics2D.drawString(variationName, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - Util.getTextLength(variationText, graphics2D) / 2, buildingY + VARIATION_BOX_HEIGHT_IN_PIXEL - MARGIN_IN_PIXEL - 20);
     }
 
-    private double getRooms(int area) {
-        if (area < 65) {
-            return 2.5;
-        } else if(area < 80) {
-            return 3.5;
-        } else if (area < 120) {
-            return 4.5;
-        } else {
-            return 5.5;
-        }
-    }
 
-    private int getNettoArea(int height) {
-        return (int) (BUILDING_WIDTH_IN_M * height * (1.0 - WALL_AREA_IN_PERCENTAGE) - STAIRCASE_AREA_IN_SQUARE_M * height / BUILDING_HEIGHT_IN_M);
-    }
+
+
 
     private int getVariationLine(int heightInMeter) {
         int minimum = 5;
