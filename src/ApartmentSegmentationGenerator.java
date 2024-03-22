@@ -4,8 +4,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Scanner;
 
 public class ApartmentSegmentationGenerator {
@@ -58,10 +56,10 @@ public class ApartmentSegmentationGenerator {
         BufferedImage bufferedImage = new BufferedImage(IMAGE_WIDTH_IN_PIXEL, IMAGE_HEIGHT_IN_PIXEL, BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics2D = bufferedImage.createGraphics();
 
-        switchDarkMode(graphics2D);
+        Image.switchDarkMode(graphics2D, IS_DARK_MODE, IMAGE_WIDTH_IN_PIXEL, IMAGE_HEIGHT_IN_PIXEL);
 
-        // Header TODO Extract into method. Maybe add draw package
-        drawHeader(graphics2D);
+        // Header
+        Image.drawHeader(graphics2D, BUILDING_WIDTH_IN_M, BUILDING_HEIGHT_IN_M, MARGIN_IN_PIXEL, BUILDING_AREA_IN_SQUARE_M, WALL_AREA_IN_PERCENTAGE, STAIRCASE_AREA_IN_SQUARE_M, IMAGE_WIDTH_IN_PIXEL);
 
         // Ground plan
         drawApartmentVariation("Variante 1", 0, graphics2D);
@@ -70,7 +68,7 @@ public class ApartmentSegmentationGenerator {
         drawApartmentVariation("Variante 4", 3, graphics2D);
 
         // Footer
-        drawFooter(graphics2D);
+        Image.drawFooter(graphics2D, IMAGE_WIDTH_IN_PIXEL, IMAGE_HEIGHT_IN_PIXEL, MARGIN_IN_PIXEL, CREATOR_VISA);
 
         File file = getFile(bufferedImage, graphics2D);
 
@@ -90,37 +88,6 @@ public class ApartmentSegmentationGenerator {
             throw new RuntimeException(e);
         }
         return file;
-    }
-
-    private void drawFooter(Graphics2D graphics2D) {
-        graphics2D.drawLine(0, IMAGE_HEIGHT_IN_PIXEL - MARGIN_IN_PIXEL / 2 - 10, IMAGE_WIDTH_IN_PIXEL, IMAGE_HEIGHT_IN_PIXEL - MARGIN_IN_PIXEL / 2 - 10);
-        graphics2D.drawString("Gezeichnet: " + getCurrentTime(), 20, IMAGE_HEIGHT_IN_PIXEL - 25);
-        graphics2D.drawLine(300, IMAGE_HEIGHT_IN_PIXEL - MARGIN_IN_PIXEL / 2 - 10, 300, IMAGE_HEIGHT_IN_PIXEL);
-        graphics2D.drawString("Author: " + CREATOR_VISA, 310, IMAGE_HEIGHT_IN_PIXEL - 25);
-        graphics2D.drawLine(500, IMAGE_HEIGHT_IN_PIXEL - MARGIN_IN_PIXEL / 2 - 10, 500, IMAGE_HEIGHT_IN_PIXEL);
-        graphics2D.drawString("M: ", 510, IMAGE_HEIGHT_IN_PIXEL - 25);
-        graphics2D.drawLine(700, IMAGE_HEIGHT_IN_PIXEL - MARGIN_IN_PIXEL / 2 - 10, 700, IMAGE_HEIGHT_IN_PIXEL);
-    }
-
-    private static void switchDarkMode(Graphics2D graphics2D) {
-        if (IS_DARK_MODE) {
-            graphics2D.setBackground(Color.black);
-            graphics2D.setColor(Color.white);
-        } else {
-            // we need to draw a filled rect with white since setBackground(Color.white) does not work
-            graphics2D.setColor(Color.white);
-            graphics2D.fillRect(0,0,IMAGE_WIDTH_IN_PIXEL, IMAGE_HEIGHT_IN_PIXEL);
-            graphics2D.setColor(Color.black);
-            graphics2D.drawRect(0,0,IMAGE_WIDTH_IN_PIXEL - 1, IMAGE_WIDTH_IN_PIXEL - 1);
-        }
-    }
-
-    private static void drawHeader(Graphics2D graphics2D) {
-        graphics2D.drawString("Varianten zur Wohnungsaufteilung mit einem Grundriss von " + BUILDING_WIDTH_IN_M * BUILDING_HEIGHT_IN_M + "m^2. "
-                + "Die Nettowohnfläche beträgt " + BUILDING_AREA_IN_SQUARE_M + "m^2 ("
-                + "abzüglich " + 100 * WALL_AREA_IN_PERCENTAGE + "% = " + (int) (BUILDING_WIDTH_IN_M * BUILDING_HEIGHT_IN_M * WALL_AREA_IN_PERCENTAGE) + "m^2 für die Wände"
-                + " und " + STAIRCASE_AREA_IN_SQUARE_M + "m^2 für das Treppenhaus).", 20, 35);
-        graphics2D.drawLine(0, MARGIN_IN_PIXEL / 2 + 10, IMAGE_WIDTH_IN_PIXEL, MARGIN_IN_PIXEL / 2 + 10);
     }
 
     private void drawApartmentVariation(String variationName, int variationNumber, Graphics2D graphics2D) {
@@ -193,12 +160,6 @@ public class ApartmentSegmentationGenerator {
 
     private int getTextHeight(Graphics2D graphics2D) {
         return graphics2D.getFontMetrics().getMaxAscent();
-    }
-
-    private String getCurrentTime() {
-        LocalDate date = LocalDate.now();
-        LocalTime time = LocalTime.now();
-        return date.getDayOfMonth() + "." + date.getMonthValue()+ "." + date.getYear() + " " + time.getHour() + ":" + time.getMinute() + ":" + time.getSecond();
     }
 
 }

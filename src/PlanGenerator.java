@@ -47,16 +47,7 @@ public class PlanGenerator {
         BufferedImage bufferedImage = new BufferedImage(imageWidthInPixel, imageHeightInPixel, BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics2D = bufferedImage.createGraphics();
 
-        if (IS_DARK_MODE) {
-            graphics2D.setBackground(Color.black);
-            graphics2D.setColor(Color.white);
-        } else {
-            // we need to draw a filled rect with white since setBackground(Color.white) does not work
-            graphics2D.setColor(Color.white);
-            graphics2D.fillRect(0,0,imageWidthInPixel, imageHeightInPixel);
-            graphics2D.setColor(Color.black);
-            graphics2D.drawRect(0,0,imageWidthInPixel - 1, imageWidthInPixel - 1);
-        }
+        Image.switchDarkMode(graphics2D, IS_DARK_MODE, imageWidthInPixel, imageHeightInPixel);
 
         // Header
         graphics2D.drawString("Grundrissplan für " + NBR_ROOMS + " Zimmer mit " + APARTMENT_WIDTH_IN_M * APARTMENT_HEIGHT_IN_M + "m^2", 20, 35);
