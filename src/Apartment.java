@@ -24,9 +24,9 @@ public class Apartment {
         } else if (roomSize == 3.5) {
             graphics2D.setColor(new Color(177, 238, 180));
         } else if (roomSize == 4.5) {
-            graphics2D.setColor(new Color(245, 152, 152));
-        } else if (roomSize == 5.5) {
             graphics2D.setColor(new Color(236, 236, 45));
+        } else if (roomSize == 5.5) {
+            graphics2D.setColor(new Color(245, 152, 152));
         }
     }
 
