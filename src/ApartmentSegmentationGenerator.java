@@ -97,8 +97,6 @@ public class ApartmentSegmentationGenerator {
         String yLegend = BUILDING_HEIGHT_IN_M + "m";
         String variationText = variationName + "";
 
-        graphics2D.drawRect(buildingX, buildingY, BUILDING_WIDTH_IN_PIXEL, BUILDING_HEIGHT_IN_PIXEL);
-
         int h1InM = HLineVariation.getVariationLine(BUILDING_HEIGHT_IN_M);
         int h2InM = BUILDING_HEIGHT_IN_M - h1InM;
         int h1InPixel = h1InM * FACTOR_M_IN_PIXEL;
