@@ -62,10 +62,9 @@ public class ApartmentSegmentationGenerator {
         Image.drawHeader(graphics2D, BUILDING_WIDTH_IN_M, BUILDING_HEIGHT_IN_M, MARGIN_IN_PIXEL, BUILDING_AREA_IN_SQUARE_M, WALL_AREA_IN_PERCENTAGE, STAIRCASE_AREA_IN_SQUARE_M, IMAGE_WIDTH_IN_PIXEL);
 
         // Ground plan
-        drawApartmentVariation("Variante 1", 0, graphics2D);
-        drawApartmentVariation("Variante 2", 1, graphics2D);
-        drawApartmentVariation("Variante 3", 2, graphics2D);
-        drawApartmentVariation("Variante 4", 3, graphics2D);
+        for (int i = 0; i < NBR_VARIATIONS; i++) {
+            drawApartmentVariation("Variante " + i + 1, i, graphics2D);
+        }
 
         // Footer
         Image.drawFooter(graphics2D, IMAGE_WIDTH_IN_PIXEL, IMAGE_HEIGHT_IN_PIXEL, MARGIN_IN_PIXEL, CREATOR_VISA);
