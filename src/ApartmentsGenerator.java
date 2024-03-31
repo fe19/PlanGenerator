@@ -11,7 +11,7 @@ public class ApartmentsGenerator {
     static final String IMAGE_FILE_PATH = ".";
     static final String IMAGE_FILE_EXTENSION = "jpg"; // jpg has 72ppi = 2835 pixel per m
     static final String CREATOR_VISA = "fe";
-    static final int NBR_VARIATIONS = 4;
+    static final int NBR_VARIATIONS = 8;
     static final int MARGIN_IN_PIXEL = 100;
     static final double WALL_AREA_IN_PERCENTAGE = 0.15;
     static final int STAIRCASE_AREA_IN_SQUARE_M = 15;
@@ -110,11 +110,13 @@ public class ApartmentsGenerator {
         graphics2D.drawString(roomsApartment1, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - Util.getTextLength(roomsApartment1, graphics2D) / 2, buildingY + h1InPixel / 2 - Util.getTextHeight(graphics2D) / 3);
         graphics2D.drawString(sizeApartment1, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - Util.getTextLength(sizeApartment1, graphics2D) / 2, buildingY + h1InPixel / 2 + Util.getTextHeight(graphics2D));
 
-        Apartment.setColor(graphics2D, Apartment.getRooms(areaApartment2));
-        graphics2D.fillRect(buildingX, buildingY + h1InPixel, BUILDING_WIDTH_IN_PIXEL, h2InPixel);
-        Apartment.resetColor(graphics2D);
-        graphics2D.drawString(roomsApartment2, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - Util.getTextLength(roomsApartment1, graphics2D) / 2, buildingY + h1InPixel + h2InPixel / 2 - Util.getTextHeight(graphics2D) / 3);
-        graphics2D.drawString(sizeApartment2, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - Util.getTextLength(sizeApartment2, graphics2D) / 2, buildingY + h1InPixel + h2InPixel / 2 + Util.getTextHeight(graphics2D));
+        if (h2InM > 0) {
+            Apartment.setColor(graphics2D, Apartment.getRooms(areaApartment2));
+            graphics2D.fillRect(buildingX, buildingY + h1InPixel, BUILDING_WIDTH_IN_PIXEL, h2InPixel);
+            Apartment.resetColor(graphics2D);
+            graphics2D.drawString(roomsApartment2, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - Util.getTextLength(roomsApartment1, graphics2D) / 2, buildingY + h1InPixel + h2InPixel / 2 - Util.getTextHeight(graphics2D) / 3);
+            graphics2D.drawString(sizeApartment2, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - Util.getTextLength(sizeApartment2, graphics2D) / 2, buildingY + h1InPixel + h2InPixel / 2 + Util.getTextHeight(graphics2D));
+        }
 
         Font font = new Font(null, Font.PLAIN, 10);
         graphics2D.setFont(font);
