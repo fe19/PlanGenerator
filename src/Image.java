@@ -4,9 +4,9 @@ public class Image {
 
     public static void drawHeader(Graphics2D graphics2D, int width, int height, int margin, double wallAreaInPercentage, int staircaseArea, int widthInPixel) {
         graphics2D.drawString("Varianten zur Wohnungsaufteilung mit einem Grundriss von " + width * height + "m^2. "
+                + "Die nutzbare Fläche beträgt " + Apartment.getArea(width, height, staircaseArea) + "m^2 (abzüglich " + staircaseArea + "m^2 für das Treppenhaus). "
                 + "Die Nettowohnfläche beträgt " + Apartment.getArea(width, height, wallAreaInPercentage, staircaseArea) + "m^2 ("
-                + "abzüglich " + 100 * wallAreaInPercentage + "% = " + (int) (width * height * wallAreaInPercentage) + "m^2 für die Wände"
-                + " und " + staircaseArea + "m^2 für das Treppenhaus).", 20, 35);
+                + "abzüglich " + 100 * wallAreaInPercentage + "% = " + (int) (width * height * wallAreaInPercentage) + "m^2 für die Wände).", 20, 35);
         graphics2D.drawLine(0, margin / 2 + 10, widthInPixel, margin / 2 + 10);
     }
 

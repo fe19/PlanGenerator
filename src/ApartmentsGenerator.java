@@ -11,7 +11,7 @@ public class ApartmentsGenerator {
     static final String IMAGE_FILE_PATH = ".";
     static final String IMAGE_FILE_EXTENSION = "jpg"; // jpg has 72ppi = 2835 pixel per m
     static final String CREATOR_VISA = "fe";
-    static final int NBR_VARIATIONS = 8;
+    static final int NBR_VARIATIONS = 5;
     static final int MARGIN_IN_PIXEL = 100;
     static final double WALL_AREA_IN_PERCENTAGE = 0.15;
     static final int STAIRCASE_AREA_IN_SQUARE_M = 15;
