@@ -2,10 +2,10 @@ import java.awt.*;
 
 public class Image {
 
-    public static void drawHeader(Graphics2D graphics2D, int with, int height, int margin, int area, double wallAreaInPercentage, int staircaseArea, int widthInPixel) {
-        graphics2D.drawString("Varianten zur Wohnungsaufteilung mit einem Grundriss von " + with * height + "m^2. "
-                + "Die Nettowohnfläche beträgt " + area + "m^2 ("
-                + "abzüglich " + 100 * wallAreaInPercentage + "% = " + (int) (with * height * wallAreaInPercentage) + "m^2 für die Wände"
+    public static void drawHeader(Graphics2D graphics2D, int width, int height, int margin, double wallAreaInPercentage, int staircaseArea, int widthInPixel) {
+        graphics2D.drawString("Varianten zur Wohnungsaufteilung mit einem Grundriss von " + width * height + "m^2. "
+                + "Die Nettowohnfläche beträgt " + Apartment.getArea(width, height, wallAreaInPercentage, staircaseArea) + "m^2 ("
+                + "abzüglich " + 100 * wallAreaInPercentage + "% = " + (int) (width * height * wallAreaInPercentage) + "m^2 für die Wände"
                 + " und " + staircaseArea + "m^2 für das Treppenhaus).", 20, 35);
         graphics2D.drawLine(0, margin / 2 + 10, widthInPixel, margin / 2 + 10);
     }

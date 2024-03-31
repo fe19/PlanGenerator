@@ -22,7 +22,6 @@ public class ApartmentsGenerator {
     static int BUILDING_HEIGHT_IN_M;
     static int BUILDING_WIDTH_IN_PIXEL;
     static int BUILDING_HEIGHT_IN_PIXEL;
-    static int BUILDING_AREA_IN_SQUARE_M;
     static int IMAGE_WIDTH_IN_PIXEL;
     static int IMAGE_HEIGHT_IN_PIXEL;
     static int VARIATION_BOX_WIDTH_IN_PIXEL;
@@ -42,8 +41,6 @@ public class ApartmentsGenerator {
         BUILDING_HEIGHT_IN_M = 20;
         scanner.close();
 
-        BUILDING_AREA_IN_SQUARE_M = (int) (BUILDING_WIDTH_IN_M * BUILDING_HEIGHT_IN_M * (1.0 - WALL_AREA_IN_PERCENTAGE)) - STAIRCASE_AREA_IN_SQUARE_M;
-
         BUILDING_WIDTH_IN_PIXEL = BUILDING_WIDTH_IN_M * FACTOR_M_IN_PIXEL;
         BUILDING_HEIGHT_IN_PIXEL = BUILDING_HEIGHT_IN_M * FACTOR_M_IN_PIXEL;
 
@@ -59,7 +56,7 @@ public class ApartmentsGenerator {
         Image.switchDarkMode(graphics2D, IS_DARK_MODE, IMAGE_WIDTH_IN_PIXEL, IMAGE_HEIGHT_IN_PIXEL);
 
         // Header
-        Image.drawHeader(graphics2D, BUILDING_WIDTH_IN_M, BUILDING_HEIGHT_IN_M, MARGIN_IN_PIXEL, BUILDING_AREA_IN_SQUARE_M, WALL_AREA_IN_PERCENTAGE, STAIRCASE_AREA_IN_SQUARE_M, IMAGE_WIDTH_IN_PIXEL);
+        Image.drawHeader(graphics2D, BUILDING_WIDTH_IN_M, BUILDING_HEIGHT_IN_M, MARGIN_IN_PIXEL, WALL_AREA_IN_PERCENTAGE, STAIRCASE_AREA_IN_SQUARE_M, IMAGE_WIDTH_IN_PIXEL);
 
         // Ground plan
         for (int i = 0; i < NBR_VARIATIONS; i++) {
@@ -100,8 +97,8 @@ public class ApartmentsGenerator {
         int h2InM = BUILDING_HEIGHT_IN_M - h1InM;
         int h1InPixel = h1InM * FACTOR_M_IN_PIXEL;
         int h2InPixel = h2InM * FACTOR_M_IN_PIXEL;
-        int areaApartment1 = Apartment.getNettoArea(BUILDING_WIDTH_IN_M, h1InM, WALL_AREA_IN_PERCENTAGE, STAIRCASE_AREA_IN_SQUARE_M);
-        int areaApartment2 = Apartment.getNettoArea(BUILDING_WIDTH_IN_M, h2InM, WALL_AREA_IN_PERCENTAGE, STAIRCASE_AREA_IN_SQUARE_M);
+        int areaApartment1 = Apartment.getArea(BUILDING_WIDTH_IN_M, h1InM, STAIRCASE_AREA_IN_SQUARE_M * h1InM / BUILDING_HEIGHT_IN_M);
+        int areaApartment2 = Apartment.getArea(BUILDING_WIDTH_IN_M, h2InM, STAIRCASE_AREA_IN_SQUARE_M * h2InM / BUILDING_HEIGHT_IN_M);
         String sizeApartment1 = areaApartment1 + "m^2";
         String sizeApartment2 = areaApartment2+ "m^2";
         String roomsApartment1 = Apartment.getRooms(areaApartment1) + "Zi";
