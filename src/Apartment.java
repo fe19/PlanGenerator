@@ -3,11 +3,11 @@ import java.awt.*;
 public class Apartment {
 
     public static double getRooms(int area) {
-        if (area < 50) {
+        if (area < 65) {
             return 1.5;
-        } else if (area < 65) {
+        } else if (area < 75) {
             return 2.5;
-        } else if(area < 75) {
+        } else if(area < 100) {
             return 3.5;
         } else if (area < 125) {
             return 4.5;
@@ -16,8 +16,12 @@ public class Apartment {
         }
     }
 
-    public static int getNettoArea(int width, int height, double wallAreaInPercent, int staircaseArea) {
-        return (int) (width * height * (1.0 - wallAreaInPercent) - staircaseArea * height / height);
+    public static int getArea(int width, int height, double wallAreaInPercent, int staircaseArea) {
+        return (int) (width * height * (1.0 - wallAreaInPercent)) - staircaseArea;
+    }
+
+    public static int getArea(int width, int height, int staircaseArea) {
+        return width * height - staircaseArea;
     }
 
     public static void setColor(Graphics2D graphics2D, double roomSize) {
