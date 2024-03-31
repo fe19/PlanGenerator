@@ -3,7 +3,9 @@ import java.awt.*;
 public class Apartment {
 
     public static double getRooms(int area) {
-        if (area < 65) {
+        if(area < 50) {
+            return 1.5;
+        } else if (area < 65) {
             return 2.5;
         } else if(area < 80) {
             return 3.5;
@@ -19,7 +21,9 @@ public class Apartment {
     }
 
     public static void setColor(Graphics2D graphics2D, double roomSize) {
-        if (roomSize == 2.5) {
+        if (roomSize == 1.5) {
+            graphics2D.setColor(new Color(233, 189, 243));
+        } else if (roomSize == 2.5) {
             graphics2D.setColor(new Color(138, 211, 234));
         } else if (roomSize == 3.5) {
             graphics2D.setColor(new Color(177, 238, 180));

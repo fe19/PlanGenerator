@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class ApartmentSegmentationGenerator {
+public class ApartmentsGenerator {
     static final String IMAGE_FILE_NAME = "Wohnungsaufteilung";
     static final String IMAGE_FILE_PATH = ".";
     static final String IMAGE_FILE_EXTENSION = "jpg"; // jpg has 72ppi = 2835 pixel per m
@@ -63,7 +63,7 @@ public class ApartmentSegmentationGenerator {
 
         // Ground plan
         for (int i = 0; i < NBR_VARIATIONS; i++) {
-            drawApartmentVariation("Variante " + i + 1, i, graphics2D);
+            drawApartmentVariation("Variante " + (i + 1), i, graphics2D);
         }
 
         // Footer
