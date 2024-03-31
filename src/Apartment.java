@@ -3,13 +3,13 @@ import java.awt.*;
 public class Apartment {
 
     public static double getRooms(int area) {
-        if(area < 50) {
+        if (area < 50) {
             return 1.5;
         } else if (area < 65) {
             return 2.5;
-        } else if(area < 80) {
+        } else if(area < 75) {
             return 3.5;
-        } else if (area < 120) {
+        } else if (area < 125) {
             return 4.5;
         } else {
             return 5.5;
