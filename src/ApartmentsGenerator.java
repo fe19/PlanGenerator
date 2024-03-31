@@ -110,12 +110,22 @@ public class ApartmentsGenerator {
         graphics2D.drawString(roomsApartment1, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - Util.getTextLength(roomsApartment1, graphics2D) / 2, buildingY + h1InPixel / 2 - Util.getTextHeight(graphics2D) / 3);
         graphics2D.drawString(sizeApartment1, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - Util.getTextLength(sizeApartment1, graphics2D) / 2, buildingY + h1InPixel / 2 + Util.getTextHeight(graphics2D));
 
+        int staircaseLength = (int) (FACTOR_M_IN_PIXEL * Math.sqrt(STAIRCASE_AREA_IN_SQUARE_M));
+
         if (h2InM > 0) {
             Apartment.setColor(graphics2D, Apartment.getRooms(areaApartment2));
             graphics2D.fillRect(buildingX, buildingY + h1InPixel, BUILDING_WIDTH_IN_PIXEL, h2InPixel);
             Apartment.resetColor(graphics2D);
             graphics2D.drawString(roomsApartment2, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - Util.getTextLength(roomsApartment1, graphics2D) / 2, buildingY + h1InPixel + h2InPixel / 2 - Util.getTextHeight(graphics2D) / 3);
             graphics2D.drawString(sizeApartment2, buildingX + BUILDING_WIDTH_IN_PIXEL / 2 - Util.getTextLength(sizeApartment2, graphics2D) / 2, buildingY + h1InPixel + h2InPixel / 2 + Util.getTextHeight(graphics2D));
+
+            graphics2D.setColor(new Color(187, 187, 187));
+            graphics2D.fillRect(buildingX + BUILDING_WIDTH_IN_PIXEL - staircaseLength, buildingY + h1InPixel - staircaseLength / 2, staircaseLength, staircaseLength);
+            graphics2D.setColor(Color.BLACK);
+        } else {
+            graphics2D.setColor(new Color(187, 187, 187));
+            graphics2D.fillRect(buildingX + BUILDING_WIDTH_IN_PIXEL - staircaseLength, buildingY + h1InPixel / 2 - staircaseLength / 2, staircaseLength, staircaseLength);
+            graphics2D.setColor(Color.BLACK);
         }
 
         Font font = new Font(null, Font.PLAIN, 10);
