@@ -6,7 +6,6 @@ This application allows to create an automatic floor plan for a house or an apar
 - Fläche 200m^2 - Treppenhaus
 - Treppenhaus positionieren
 - Parameter minimale Grösse Apartment
-- Fehler: Fläche sollte 155m^2 sein (ist 140m^2)
 - Badezimmer (blau) etc grob einzeichnen
 - Variable Breite
 - Constraints:
